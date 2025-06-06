@@ -1,0 +1,130 @@
+:root {
+  --banco-1: #25273D;
+  --banco-2: #EE3A57;
+  --banco-3: #FDFDFF;
+  --banco-4: #000000;
+  --banco-btn: #1D8FF4;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 650px;
+  padding: 30px;
+  background: var(--banco-1);
+}
+
+.banco-information {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.banco-title {
+  color: var(--banco-2);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  margin-top: 50px;
+}
+
+.banco-description {
+  color: var(--banco-3);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-form {
+  background: var(--banco-4);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+}
+
+.login-input {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 350px;
+  gap: 1rem;
+}
+
+.login-input-text {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--banco-1);
+  color: var(--banco-3);
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(29,143,244,0.05);
+}
+
+.login-input-text::placeholder {
+  color: #bfc2d4;
+  opacity: 1;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 1rem;
+  top: 2.25rem;
+  color: #bfc2d4;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.eye-icon:hover {
+  color: var(--banco-btn);
+}
+
+.login-button,
+.register-button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--banco-btn);
+  color: var(--banco-3);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(29,143,244,0.10);
+}
+
+.login-button:hover,
+.register-button:hover {
+  background: #176dc1;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.register-button {
+  background: transparent;
+  color: var(--banco-btn);
+  border: 2px solid var(--banco-btn);
+  margin-top: 0.5rem;
+}
+
+.register-button:hover {
+  background: var(--banco-btn);
+  color: var(--banco-3);
+}
+
+.login-form p {
+  color: var(--banco-3);
+  margin: 1rem 0 0.25rem 0;
+  font-size: 0.95rem;
+  text-align: center;
+}
