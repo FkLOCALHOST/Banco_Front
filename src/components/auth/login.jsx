@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../../assets/styles/login.css";
 import useLogin from "../../shared/hooks/auth/useLogin";
 
-const Login = () => {
+const Login = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,8 +11,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login data:", { email, password }); // Debug
-    await login({ email, password });
+    const result = await login({ email, password });
+    if (result && !result.error && typeof onSuccess === "function") {
+      onSuccess();
+    }
   };
 
   return (

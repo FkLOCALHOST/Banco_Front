@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import AuthPage from './pages/auth/authPage.jsx'
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
+import { useRoutes } from "react-router-dom";
+import { routes } from "./routes";
 
-  return (
-    <>
-      <AuthPage />
-    </>
-  )
+function App() {
+  let element = useRoutes(routes);
+
+  return <>{element}</>;
 }
 
-export default App
+export default App;
