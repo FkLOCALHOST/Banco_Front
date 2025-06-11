@@ -1,0 +1,172 @@
+/* Estilos para las tarjetas de cuenta */
+.account-cards-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 64px);
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 1rem;
+}
+
+.account-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #EE3A57;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.account-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+}
+
+.account-card {
+  background: linear-gradient(135deg, #25263c 0%, #1a1b28 100%);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 200px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.account-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 16px;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.account-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.account-card:hover::before {
+  opacity: 1;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.account-card:hover .card-icon {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+/* Variaciones de color para diferentes tarjetas */
+.account-card.info {
+  background: linear-gradient(135deg, #25263c 0%, #2a2d4a 100%);
+}
+
+.account-card.edit {
+  background: linear-gradient(135deg, #2a2d4a 0%, #25263c 100%);
+}
+
+.account-card.service {
+  background: linear-gradient(135deg, #1e1f30 0%, #25263c 100%);
+}
+
+.account-card.favorites {
+  background: linear-gradient(135deg, #25263c 0%, #1e1f30 100%);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .account-cards-container {
+    padding: 1rem;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .account-card {
+    min-height: 180px;
+    padding: 2rem 1.5rem;
+  }
+  
+  .account-title {
+    font-size: 2rem;
+  }
+  
+  .account-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-header {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .account-title {
+    font-size: 1.8rem;
+  }
+  
+  .card-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
