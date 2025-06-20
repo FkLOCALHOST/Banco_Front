@@ -2,6 +2,7 @@ import AuthPage from "./pages/auth/authPage.jsx";
 import HomePage from "./pages/homePage.jsx";
 import CookieValidator from "./shared/validators/validateCookie.jsx";
 import Credito from "./components/credit/credits.jsx";
+import Notificaciones from "./components/notifications.jsx";
 
 export const routes = [
   {
@@ -20,5 +21,9 @@ export const routes = [
   {
     path: "/credit",
     element: <Credito/>
+  },
+  {
+    path: "/noti",
+    element: <Notificaciones/>
   }
 ];
