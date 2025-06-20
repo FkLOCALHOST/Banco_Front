@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../../assets/styles/helpStyles.css"
 
 const PaginaAyuda = () => {
   const faqs = [
