@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../components/navbar.jsx";
-import Sidebar from "../components/sideBar.jsx";
-import BankAccounts from "../components/dashboard/bankAccounts.jsx";
+import Navbar from "../../components/navbar.jsx";
+import Sidebar from "../../components/sideBar.jsx";
+import BankAccounts from "../../components/dashboard/bankAccounts.jsx";
 
-export default function HomePage() {
+const AccountsPage = () => {
   return (
     <>
       <Navbar />
@@ -15,4 +15,6 @@ export default function HomePage() {
       </div>
     </>
   );
-}
+};
+
+export default AccountsPage;

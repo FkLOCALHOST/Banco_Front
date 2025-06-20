@@ -1,0 +1,245 @@
+.bank-accounts-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 64px);
+}
+
+.accounts-header {
+  margin-bottom: 2rem;
+}
+
+.accounts-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}
+
+.accounts-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.account-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.account-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.account-card.monetary {
+  border-left-color: #28a745;
+}
+
+.account-card.saving {
+  border-left-color: #007bff;
+}
+
+.account-card.foreign {
+  border-left-color: #ffc107;
+}
+
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.account-type {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.account-icon {
+  font-size: 2rem;
+  color: #EE3A57;
+  background-color: rgba(238, 58, 87, 0.1);
+  padding: 0.8rem;
+  border-radius: 12px;
+}
+
+.account-type h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.2rem 0;
+}
+
+.account-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.favorite-icon {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.favorite-icon.filled {
+  color: #EE3A57;
+}
+
+.account-number {
+  margin-bottom: 1.5rem;
+}
+
+.account-number > span {
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.number-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+
+.number {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.balance-section {
+  margin-bottom: 1.5rem;
+}
+
+.balance-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.balance-header span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.toggle-balance {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 1rem;
+  padding: 0.2rem;
+}
+
+.toggle-balance:hover {
+  color: #333;
+}
+
+.balance-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.monetary .balance-amount {
+  color: #28a745;
+}
+
+.saving .balance-amount {
+  color: #007bff;
+}
+
+.foreign .balance-amount {
+  color: #ffc107;
+}
+
+.movements-count {
+  font-size: 0.9rem;
+  color: #666;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.favorites-section {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.favorites-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.favorite-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f8f9fa;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accounts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .accounts-title {
+    font-size: 2rem;
+  }
+  
+  .balance-amount {
+    font-size: 1.5rem;
+  }
+}
