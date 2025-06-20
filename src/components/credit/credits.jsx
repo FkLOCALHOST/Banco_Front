@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../../assets/styles/creditStyle.css"
 
 const Credito = ({ monto = 5000 }) => {
     return (
