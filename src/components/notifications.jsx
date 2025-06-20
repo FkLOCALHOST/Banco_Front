@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import "../assets/styles/notifications.css"
 const Notificaciones = () => {
   const [abierto, setAbierto] = useState(false);
   const ref = useRef();
