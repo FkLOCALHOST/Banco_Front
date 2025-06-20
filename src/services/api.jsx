@@ -3,6 +3,7 @@ import axios from "axios";
 const apiWallet = axios.create({
   baseURL: "http://localhost:3005/walletManager/v1",
   timeout: 9000,
+  withCredentials: true, // Permite enviar cookies con cada solicitud
 });
 
 apiWallet.interceptors.request.use(
@@ -11,11 +12,11 @@ apiWallet.interceptors.request.use(
       !config.url.includes("/auth/login") &&
       !config.url.includes("/auth/register")
     ) {
-      const userStr = localStorage.getItem("User");
-      if (!userStr) return Promise.reject(new Error("No autorizado"));
+      const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+      if (!userCookie) return Promise.reject(new Error("No autorizado"));
 
       try {
-        const user = JSON.parse(userStr);
+        const user = JSON.parse(decodeURIComponent(userCookie[2]));
         const token = user.token || user.userDetails?.token;
         if (!token) return Promise.reject(new Error("No autorizado"));
 
@@ -26,13 +27,11 @@ apiWallet.interceptors.request.use(
         const now = Math.floor(Date.now() / 1000);
 
         if (payload.exp < now) {
-          localStorage.clear();
           return Promise.reject(new Error("Token expirado"));
         }
 
         config.headers["Authorization"] = `Bearer ${token}`;
       } catch (error) {
-        localStorage.clear();
         return Promise.reject(new Error("Token inválido"));
       }
     }
@@ -52,9 +51,6 @@ export const register = async (data) => {
 export const login = async (data) => {
   try {
     const response = await apiWallet.post("/auth/login", data);
-    if (response.data && response.data.token) {
-      localStorage.setItem("User", JSON.stringify(response.data));
-    }
     return response;
   } catch (error) {
     return { error: true, message: error.message };

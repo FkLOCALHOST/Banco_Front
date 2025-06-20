@@ -32,6 +32,8 @@ const Login = ({ onSuccess }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            name="email"
+            id="login-email"
           />
           <input
             type={showPassword ? "text" : "password"}
@@ -40,6 +42,8 @@ const Login = ({ onSuccess }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            name="password"
+            id="login-password"
           />
           <span
             className="eye-icon"
