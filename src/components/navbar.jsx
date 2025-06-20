@@ -2,6 +2,7 @@ import React from "react";
 import { FiHelpCircle, FiBell, FiLogOut } from "react-icons/fi";
 import "../assets/styles/navbar.css";
 import useCurrentUser from "../shared/hooks/auth/useNameUser";
+import logo from "../assets/logoBanco.png";
 
 const deleteCookie = (name) => {
   document.cookie = `${name}=; Max-Age=0; path=/;`;
@@ -10,15 +11,19 @@ const deleteCookie = (name) => {
 const Navbar = () => {
   const user = useCurrentUser();
   const handleLogout = (sesion) => {
-   sesion.preventDefault();
-   deleteCookie("User");
-   window.location.reload();
+    sesion.preventDefault();
+    deleteCookie("User");
+    window.location.reload();
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        BAM <span className="highlight">GUATE</span>
+        <img
+          src={logo}
+          alt="Logo"
+          style={{ height: "80px", marginRight: "5%", marginTop: "10px" }}
+        />
       </div>
       <div className="navbar-user">
         <span>
