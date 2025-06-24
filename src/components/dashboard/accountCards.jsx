@@ -6,9 +6,11 @@ import {
   FiHeart,
   FiInfo
 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/accountCards.css';
 
 const AccountCards = () => {
+  const navigate = useNavigate()
   return (
     <div className="account-cards-container">
       <div className="account-header">
@@ -32,7 +34,11 @@ const AccountCards = () => {
           <h3 className="card-title">Editar datos de<br />la cuenta</h3>
         </div>
 
-        <div className="account-card service">
+        <div 
+          className="account-card service" 
+          onClick={() => navigate('/clientService')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="card-icon">
             <FiHeadphones />
           </div>
