@@ -25,8 +25,11 @@ export const routes = [
     element: (
       <CookieValidator>
         <EditAccountPage />
+      </CookieValidator>
+    ),
   },
-     { path: "/history",
+  {
+    path: "/history",
     element: (
       <CookieValidator>
         <HistoryPage />
