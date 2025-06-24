@@ -104,3 +104,199 @@ export const createWallet = async () => {
     return { error: true, message: error.message };
   }
 };
+
+// PRODUCTOS
+export const getProducts = async () => {
+  try {
+    return await apiWallet.get("/product/");
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const addProduct = async (data) => {
+  try {
+    return await apiWallet.post("/product/agregar", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const updateProduct = async (id, data) => {
+  try {
+    return await apiWallet.put(`/product/actualizar/${id}`, data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const toggleProduct = async (id) => {
+  try {
+    return await apiWallet.patch(`/product/desactivar/${id}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const searchProduct = async (name) => {
+  try {
+    return await apiWallet.get(`/product/buscar/${name}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const assignProduct = async (data) => {
+  try {
+    return await apiWallet.post("/product/asignar", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const deleteProductFromUser = async (data) => {
+  try {
+    return await apiWallet.delete("/product/eliminar", { data });
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getUserProducts = async (userId) => {
+  try {
+    return await apiWallet.get(`/product/usuario/${userId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+// SERVICIOS
+export const getServices = async () => {
+  try {
+    return await apiWallet.get("/service/");
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const addService = async (data) => {
+  try {
+    return await apiWallet.post("/service/agregar", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const updateService = async (id, data) => {
+  try {
+    return await apiWallet.put(`/service/actualizar/${id}`, data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const toggleService = async (id) => {
+  try {
+    return await apiWallet.patch(`/service/desactivar/${id}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const searchService = async (name) => {
+  try {
+    return await apiWallet.get(`/service/buscar/${name}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const assignService = async (data) => {
+  try {
+    return await apiWallet.post("/service/asignar", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const deleteServiceFromUser = async (data) => {
+  try {
+    return await apiWallet.delete("/service/eliminar", { data });
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getUserServices = async (userId) => {
+  try {
+    return await apiWallet.get(`/service/usuario/${userId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+// TRANSACCIONES
+export const createTransaction = async (data) => {
+  try {
+    return await apiWallet.post("/transaction/createTransaction", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const revertTransaction = async (uid) => {
+  try {
+    return await apiWallet.patch(`/transaction/revertTransaction/${uid}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const depositTransaction = async (data) => {
+  try {
+    return await apiWallet.post("/transaction/depositTransaction", data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const updateDeposit = async (uid, data) => {
+  try {
+    return await apiWallet.patch(`/transaction/updateDeposit/${uid}`, data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const updateTransaction = async (uid, data) => {
+  try {
+    return await apiWallet.patch(`/transaction/updateTransaction/${uid}`, data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+// WALLET
+export const getWalletBalances = async (userId) => {
+  try {
+    return await apiWallet.get(`/wallet/balances/${userId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getWalletMovements = async (userId) => {
+  try {
+    return await apiWallet.get(`/wallet/movements/${userId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const addFavoriteAccount = async (uid) => {
+  try {
+    return await apiWallet.patch(`/wallet/addFavoriteAccount/${uid}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
