@@ -25,8 +25,7 @@ export const routes = [
       <CookieValidator>
         <HistoryPage />
       </CookieValidator>
-
-    )
+    ),
   },
   {
     path: "/transfer",
@@ -34,13 +33,13 @@ export const routes = [
       <CookieValidator>
         <TransferPage />
       </CookieValidator>
-
-    )
+    ),
   },
   {
     path: "/clientService",
-    element: <ClientServicePage/>
-  }
+    element: <ClientServicePage />,
+  },
+  {
     path: "/accounts",
     element: (
       <CookieValidator>
