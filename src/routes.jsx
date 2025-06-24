@@ -5,6 +5,7 @@ import TransferPage from "./pages/transfer/transferPage.jsx";
 import ClientServicePage from "./pages/clientService/clientServicePage.jsx";
 import AccountsPage from "./pages/dashboard/accountsPage.jsx";
 import CookieValidator from "./shared/validators/validateCookie.jsx";
+import EditAccountPage from "./pages/account/editAccount.jsx";
 
 export const routes = [
   {
@@ -20,7 +21,12 @@ export const routes = [
     ),
   },
   {
-    path: "/history",
+    path: "/editar-cuenta",
+    element: (
+      <CookieValidator>
+        <EditAccountPage />
+  },
+     { path: "/history",
     element: (
       <CookieValidator>
         <HistoryPage />
