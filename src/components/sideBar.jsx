@@ -7,8 +7,10 @@ import {
   FiDollarSign 
 } from 'react-icons/fi';
 import '../assets/styles/sidebar.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const navigate = useNavigate()
   return (
     <aside className="sidebar">
       <div className="sidebar-user">
@@ -31,13 +33,13 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="#">
+          <a onClick={() => navigate('/transfer')} style={{cursor: 'pointer'}}>
               <FiSend className="sidebar-link-icon" />
               Transferir
             </a>
           </li>
           <li>
-            <a href="#">
+            <a onClick={() => navigate('/history')} style={{cursor: 'pointer'}}>
               <FiClock className="sidebar-link-icon" />
               Historial
             </a>
