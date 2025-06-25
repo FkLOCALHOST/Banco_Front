@@ -23,7 +23,7 @@ const Sidebar = () => {
           <li>
             <a href="#">
               <FiUser className="sidebar-link-icon" />
-              Cuenta BG
+              Servicios
             </a>
           </li>
           <li>

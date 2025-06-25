@@ -18,7 +18,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
+      <div
+        className="navbar-logo"
+        onClick={() => (window.location.href = "/home")}
+        style={{ cursor: "pointer" }}
+      >
         <img
           src={logo}
           alt="Logo"
