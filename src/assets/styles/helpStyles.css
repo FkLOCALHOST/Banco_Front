@@ -1,0 +1,58 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000; /* fondo consistente */
+  font-family: "Segoe UI", sans-serif;
+}
+
+.pagina-ayuda {
+  width: 100vw;
+  height: 100vh;
+  padding: 40px;
+  background-color: #000000;
+  box-sizing: border-box;
+  border-radius: 0; /* opcional: sin bordes redondeados si cubre toda la pantalla */
+
+  overflow-y: auto;
+}
+
+.titulo-ayuda {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #EE3A57;
+}
+
+.subtitulo-ayuda {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.faq-item {
+  background-color: #25273d;
+  color: #fdfdff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pregunta {
+  font-size: 20px;
+  font-weight: bold;
+  color: #EE3A57;
+  margin-bottom: 10px;
+}
+
+.respuesta {
+  font-size: 16px;
+  color: #fdfdff;
+}
