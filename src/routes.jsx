@@ -9,6 +9,7 @@ import Credito from "./components/credit/credits.jsx";
 import Notificaciones from "./components/notifications.jsx";
 import PaginaAyuda from "./pages/help/helpPage.jsx";
 import EditAccountPage from "./pages/account/editAccount.jsx";
+import ViewAccountPage from "./pages/account/viewAccount.jsx";
 
 export const routes = [
   {
@@ -72,4 +73,12 @@ export const routes = [
       </CookieValidator>
     ),
   },
+  {
+  path: "/cuenta",
+  element: (
+    <CookieValidator>
+      <ViewAccountPage />
+    </CookieValidator>
+  ),
+},
 ];
