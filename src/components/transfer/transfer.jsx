@@ -70,14 +70,9 @@ const Transfer = () => {
             className={`tab-btn ${activeTab === "history" ? "active" : ""}`}
             onClick={() => handleTabChange("history")}
           >
-            Historial
+            Servicios
           </button>
-          <button
-            className={`tab-btn ${activeTab === "deposit" ? "active" : ""}`}
-            onClick={() => handleTabChange("deposit")}
-          >
-            Depósito
-          </button>
+          
         </div>
       </div>
 
@@ -166,40 +161,6 @@ const Transfer = () => {
             <h3>Últimas transacciones</h3>
             <button className="view-all-btn">Ver todo</button>
           </div>
-        </div>
-      )}
-
-      {activeTab === "deposit" && (
-        <div className="deposit-form">
-          <div className="form-group">
-            <label htmlFor="deposit-amount">Monto a depositar</label>
-            <div className="amount-input">
-              <span>Q</span>
-              <input
-                type="number"
-                id="deposit-amount"
-                name="amount"
-                placeholder="0.00"
-                value={formData.amount}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Cuenta destino</label>
-            <select
-              name="typeRecive"
-              value={formData.typeRecive}
-              onChange={handleInputChange}
-            >
-              <option value="monetary">Monetaria</option>
-              <option value="saving">Ahorro</option>
-              <option value="foreing">Moneda extranjera</option>
-            </select>
-          </div>
-
-          <button className="deposit-btn">Realizar depósito</button>
         </div>
       )}
     </div>
