@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../assets/styles/notifications.css"
+import { FiBell } from "react-icons/fi";
 const Notificaciones = () => {
   const [abierto, setAbierto] = useState(false);
   const ref = useRef();
@@ -30,7 +31,7 @@ const Notificaciones = () => {
         onClick={() => setAbierto(!abierto)}
         aria-label="Notificaciones"
       >
-        🔔
+        <FiBell/>
       </button>
 
       {abierto && (
