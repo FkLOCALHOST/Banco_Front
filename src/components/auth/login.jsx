@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/login.css";
 import useLogin from "../../shared/hooks/auth/useLogin";
 
@@ -8,12 +9,16 @@ const Login = ({ onSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading, error } = useLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await login({ email, password });
-    if (result && !result.error && typeof onSuccess === "function") {
-      onSuccess();
+    if (result && !result.error) {
+      navigate("/home");
+      if (typeof onSuccess === "function") {
+        onSuccess();
+      }
     }
   };
 
