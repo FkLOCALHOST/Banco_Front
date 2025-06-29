@@ -1,30 +1,17 @@
 import React from 'react';
 import { FiArrowUpRight, FiArrowDownLeft } from 'react-icons/fi';
 import "../../assets/styles/historyTable.css"
+import useHistory from "../../shared/hooks/history/useHistory";
 
 const HistoryTable = () => {
+  const { history, loading, error } = useHistory();
 
-    //Datos de prueba
-  const transactions = [
-    {
-      id: 1,
-      type: 'send',
-      amount: 500.00,
-      account: '****7890',
-      date: '15/06/2023',
-      time: '10:30 AM',
-      description: 'Transferencia a cuenta personal'
-    },
-    {
-      id: 2,
-      type: 'receive',
-      amount: 1200.00,
-      account: '****4567',
-      date: '14/06/2023',
-      time: '02:15 PM',
-      description: 'Depósito de nómina'
-    }
-  ]
+  if (loading) {
+    return <div className="history-container"><p>Cargando historial...</p></div>;
+  }
+  if (error) {
+    return <div className="history-container"><p>Error: {error}</p></div>;
+  }
 
   return (
     <div className="history-container">
@@ -44,29 +31,35 @@ const HistoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => (
-              <tr key={transaction.id}>
-                <td>
-                  {transaction.type === 'send' ? (
+            {history.length === 0 ? (
+              <tr>
+                <td colSpan={5}>No hay transacciones.</td>
+              </tr>
+            ) : (
+              history.map((transactionId) => (
+                <tr key={transactionId}>
+                  <td>
+                    {/* No hay info de tipo, solo ID */}
                     <span className="transaction-type send">
                       <FiArrowUpRight /> Enviado
                     </span>
-                  ) : (
-                    <span className="transaction-type receive">
-                      <FiArrowDownLeft /> Recibido
-                    </span>
-                  )}
-                </td>
-                <td className={transaction.type === 'send' ? 'amount-send' : 'amount-receive'}>
-                  {transaction.type === 'send' ? '-' : '+'} Q{transaction.amount.toFixed(2)}
-                </td>
-                <td>{transaction.account}</td>
-                <td>
-                  {transaction.date} <span className="time">{transaction.time}</span>
-                </td>
-                <td>{transaction.description}</td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="amount-send">
+                    {/* Sin monto, solo ID */}
+                    Q -
+                  </td>
+                  <td>{transactionId}</td>
+                  <td>
+                    {/* Sin fecha */}
+                    -
+                  </td>
+                  <td>
+                    {/* Sin descripción */}
+                    -
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

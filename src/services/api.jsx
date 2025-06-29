@@ -300,3 +300,11 @@ export const addFavoriteAccount = async (uid) => {
     return { error: true, message: error.message };
   }
 };
+
+export const getHistoryOfTransactions = async (uid) => {
+  try {
+    return await apiWallet.get(`/user/getHistoryOfTransactions/${uid}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
