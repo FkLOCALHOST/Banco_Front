@@ -44,12 +44,6 @@ const Sidebar = () => {
               Historial
             </a>
           </li>
-          <li>
-            <a href="#">
-              <FiDollarSign className="sidebar-link-icon" />
-              Crédito
-            </a>
-          </li>
         </ul>
       </nav>
     </aside>
