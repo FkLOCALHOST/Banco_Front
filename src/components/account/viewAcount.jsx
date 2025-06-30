@@ -1,10 +1,39 @@
 import React from "react";
-import { FiUser, FiMail, FiMapPin, FiDollarSign, FiUserCheck } from "react-icons/fi";
+import {
+  FiUser,
+  FiMail,
+  FiMapPin,
+  FiDollarSign,
+  FiUserCheck,
+} from "react-icons/fi";
 import "../../assets/styles/viewAccount.css";
-import useCurrentUser from "../../shared/hooks/auth/useNameUser";
+import useGetUser from "../../shared/hooks/user/useGetUser";
+
+function getUidFromCookie() {
+  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+  if (!userCookie) return null;
+  try {
+    const user = JSON.parse(decodeURIComponent(userCookie[2]));
+    return user.uid || user.id || user.userDetails?.uid || null;
+  } catch (e) {
+    return null;
+  }
+}
 
 const ViewAcount = ({ onEdit }) => {
-  const user = useCurrentUser();
+  const uid = getUidFromCookie();
+  const { user, loading, error } = useGetUser(uid);
+
+  if (loading)
+    return (
+      <div className="view-account-container">Cargando información...</div>
+    );
+  if (error)
+    return (
+      <div className="view-account-container">
+        Error al cargar la información.
+      </div>
+    );
 
   return (
     <div className="view-account-container">
@@ -18,14 +47,14 @@ const ViewAcount = ({ onEdit }) => {
             <label>Nombre</label>
             <div className="view-account-input-icon">
               <FiUser />
-              <span>{user?.nombre || "No disponible"}</span>
+              <span>{user?.name || "No disponible"}</span>
             </div>
           </div>
           <div className="view-account-field">
             <label>Usuario</label>
             <div className="view-account-input-icon">
               <FiUserCheck />
-              <span>{user?.username || "No disponible"}</span>
+              <span>{user?.userName || "No disponible"}</span>
             </div>
           </div>
         </div>
