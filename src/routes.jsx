@@ -10,12 +10,17 @@ import Notificaciones from "./components/notifications.jsx";
 import PaginaAyuda from "./pages/help/helpPage.jsx";
 import EditAccountPage from "./pages/account/editAccount.jsx";
 import ViewAccountPage from "./pages/account/viewAccount.jsx";
+import ServicesPage from "./pages/services/servicesPage.jsx";
+import MoneyAccountsPage from "./pages/moneyAccounts/moneyAcountsPage.jsx";
+import ServicesEducacion from "./pages/services/servicesEducacion";
+import ServicesBasic from "./pages/services/servicesBasic";
+import ServicesInstitutions from "./pages/services/servicesInstitutions";
+import ServicesDonate from "./pages/services/servicesDonate";
 
 export const routes = [
   {
     path: "/",
     element: <AuthPage />,
- 
   },
   {
     path: "/home",
@@ -27,17 +32,17 @@ export const routes = [
   },
   {
     path: "/credit",
-    element: <Credito/>
+    element: <Credito />,
   },
   {
     path: "/noti",
-    element: <Notificaciones/>
+    element: <Notificaciones />,
   },
   {
     path: "/help",
-    element: <PaginaAyuda />
+    element: <PaginaAyuda />,
   },
-{
+  {
     path: "/editar-cuenta",
     element: (
       <CookieValidator>
@@ -74,11 +79,59 @@ export const routes = [
     ),
   },
   {
-  path: "/cuenta",
-  element: (
-    <CookieValidator>
-      <ViewAccountPage />
-    </CookieValidator>
-  ),
-},
+    path: "/cuenta",
+    element: (
+      <CookieValidator>
+        <ViewAccountPage />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/services",
+    element: (
+      <CookieValidator>
+        <ServicesPage />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/services/educacion",
+    element: (
+      <CookieValidator>
+        <ServicesEducacion />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/services/basicos",
+    element: (
+      <CookieValidator>
+        <ServicesBasic />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/services/instituciones",
+    element: (
+      <CookieValidator>
+        <ServicesInstitutions />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/services/donaciones",
+    element: (
+      <CookieValidator>
+        <ServicesDonate />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/money-accounts",
+    element: (
+      <CookieValidator>
+        <MoneyAccountsPage />
+      </CookieValidator>
+    ),
+  },
 ];

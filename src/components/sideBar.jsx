@@ -21,13 +21,13 @@ const Sidebar = () => {
       <nav>
         <ul className="sidebar-links">
           <li>
-            <a href="#">
+            <a onClick={() => navigate('/services')} style={{cursor: 'pointer'}}>
               <FiUser className="sidebar-link-icon" />
               Servicios
             </a>
           </li>
           <li>
-            <a href="#">
+            <a onClick={() => navigate('/money-accounts')} style={{cursor: 'pointer'}}>
               <FiCreditCard className="sidebar-link-icon" />
               Cuentas
             </a>

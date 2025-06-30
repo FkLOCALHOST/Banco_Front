@@ -1,31 +1,80 @@
-import React, { useState } from "react";
-import { FiUser, FiMail, FiMapPin, FiBriefcase, FiDollarSign } from "react-icons/fi";
+import React, { useState, useEffect } from "react";
+import { FiUser, FiUserCheck, FiMapPin, FiBriefcase, FiDollarSign } from "react-icons/fi";
 import "../../assets/styles/editAccount.css";
+import useGetUser from "../../shared/hooks/user/useGetUser";
+import useEditUser from "../../shared/hooks/user/useEditUser";
+import AlertCustom from "../alertCustom";
 
-const EditAcount = ({ user = {} }) => {
+function getUidFromCookie() {
+  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+  if (!userCookie) return null;
+  try {
+    const user = JSON.parse(decodeURIComponent(userCookie[2]));
+    return user.uid || user.id || user.userDetails?.uid || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+const EditAcount = ({ user: _user }) => {
+  const uid = getUidFromCookie();
+  const { user, loading, error } = useGetUser(uid);
+  const { editUser, loading: saving, error: saveError, success } = useEditUser();
+
   const [form, setForm] = useState({
-    nombre: user.nombre || "",
-    correo: user.correo || "",
-    direccion: user.direccion || "",
-    ocupacion: user.ocupacion || "",
-    ingresos: user.ingresos || "",
+    name: "",
+    userName: "",
+    address: "",
+    workName: "",
+    monthEarnings: "",
   });
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setForm({
+        name: user.name || "",
+        userName: user.userName || "",
+        address: user.address || "",
+        workName: user.workName || "",
+        monthEarnings: user.monthEarnings || "",
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (success) {
+      setShowAlert(true);
+      const timer = setTimeout(() => setShowAlert(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para guardar los cambios
-    alert("Datos guardados correctamente (simulado)");
+    await editUser(uid, form);
   };
+
+  if (loading) return <div className="edit-account-container">Cargando información...</div>;
+  if (error) return <div className="edit-account-container">Error al cargar la información.</div>;
 
   return (
     <div className="edit-account-container">
+      {showAlert && (
+        <AlertCustom
+          message="¡Datos guardados correctamente!"
+          type="success"
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       <div className="edit-account-header">
         <FiUser className="edit-account-header-icon" />
-        <h2>Edicion de la cuenta</h2>
+        <h2>Edición de la cuenta</h2>
       </div>
       <form className="edit-account-form" onSubmit={handleSubmit}>
         <div className="edit-account-row">
@@ -35,21 +84,21 @@ const EditAcount = ({ user = {} }) => {
               <FiUser />
               <input
                 type="text"
-                name="nombre"
-                value={form.nombre}
+                name="name"
+                value={form.name}
                 onChange={handleChange}
                 required
               />
             </div>
           </div>
           <div className="edit-account-field">
-            <label>Correo Electronico</label>
+            <label>Usuario</label>
             <div className="edit-account-input-icon">
-              <FiMail />
+              <FiUserCheck />
               <input
-                type="email"
-                name="correo"
-                value={form.correo}
+                type="text"
+                name="userName"
+                value={form.userName}
                 onChange={handleChange}
                 required
               />
@@ -58,13 +107,13 @@ const EditAcount = ({ user = {} }) => {
         </div>
         <div className="edit-account-row">
           <div className="edit-account-field" style={{ width: "100%" }}>
-            <label>Direccion</label>
+            <label>Dirección</label>
             <div className="edit-account-input-icon">
               <FiMapPin />
               <input
                 type="text"
-                name="direccion"
-                value={form.direccion}
+                name="address"
+                value={form.address}
                 onChange={handleChange}
                 required
               />
@@ -73,26 +122,26 @@ const EditAcount = ({ user = {} }) => {
         </div>
         <div className="edit-account-row">
           <div className="edit-account-field">
-            <label>Ocupacion</label>
+            <label>Ocupación</label>
             <div className="edit-account-input-icon">
               <FiBriefcase />
               <input
                 type="text"
-                name="ocupacion"
-                value={form.ocupacion}
+                name="workName"
+                value={form.workName}
                 onChange={handleChange}
                 required
               />
             </div>
           </div>
           <div className="edit-account-field">
-            <label>Ingresos</label>
+            <label>Ingresos Mensuales</label>
             <div className="edit-account-input-icon">
               <FiDollarSign />
               <input
                 type="number"
-                name="ingresos"
-                value={form.ingresos}
+                name="monthEarnings"
+                value={form.monthEarnings}
                 onChange={handleChange}
                 required
               />
@@ -100,10 +149,19 @@ const EditAcount = ({ user = {} }) => {
           </div>
         </div>
         <div className="edit-account-actions">
-          <button type="submit" className="edit-account-save-btn">
-            Guardar
+          <button type="submit" className="edit-account-save-btn" disabled={saving}>
+            {saving ? "Guardando..." : "Guardar"}
+          </button>
+          <button
+            type="button"
+            className="edit-account-save-btn"
+            style={{ marginLeft: "1rem", background: "#25263c" }}
+            onClick={() => alert("Funcionalidad de cambiar contraseña (simulado)")}
+          >
+            Cambiar contraseña
           </button>
         </div>
+        {saveError && <div style={{ color: "red", marginTop: "1rem" }}>{saveError}</div>}
       </form>
     </div>
   );
