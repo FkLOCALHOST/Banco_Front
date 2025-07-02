@@ -309,6 +309,14 @@ export const getHistoryOfTransactions = async (uid) => {
   }
 };
 
+export const getTransactionById = async (transactionId) => {
+  try {
+    return await apiWallet.get(`/transaction/getTransaction/${transactionId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
 export const getAccounts = async (uid) => {
   try {
     return await apiWallet.get(`/user/getWallet/${uid}`);

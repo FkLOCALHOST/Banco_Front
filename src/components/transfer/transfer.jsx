@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../assets/styles/transfer.css";
 import serviceHeaderImage from "../../assets/HeaderTR.png";
 import useRelizeTransfer from "../../shared/hooks/transfer/useRelizeTransfer";
+import useDepositTransaction from "../../shared/hooks/transfer/useDepositTransaction";
 import { useGetAccounts } from "../../shared/hooks/accounts/useGetAccounts";
 import useCurrentUser from "../../shared/hooks/auth/useNameUser";
 
@@ -21,8 +22,16 @@ const Transfer = () => {
     note: "",
   });
 
+const [depositData, setDepositData] = useState({
+    receiver: "",
+    sender: "",
+    amount: "",
+    type: "monetary",
+  });
+
 
   const { relizeTransfer, loading, error, result } = useRelizeTransfer();
+  const { executeDeposit, loading: depositLoading, error: depositError, result: depositResult } = useDepositTransaction();
 
   const getAccountOptions = () => {
     if (!accounts) return [];
@@ -81,6 +90,14 @@ const Transfer = () => {
     }
   };
 
+  const handleDepositInputChange = (e) => {
+    const { name, value } = e.target;
+    setDepositData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleTransfer = async (e) => {
     e.preventDefault();
     const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
@@ -108,6 +125,31 @@ const Transfer = () => {
     });
   };
 
+  const handleDeposit = async (e) => {
+    e.preventDefault();
+    const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+    let senderId = "";
+    if (userCookie) {
+      try {
+        const userData = JSON.parse(decodeURIComponent(userCookie[2]));
+        senderId = userData.id || "";
+      } catch {
+        senderId = "";
+      }
+    }
+    if (!senderId) {
+      alert("La sesion ha expirado. Por favor, vuelve a iniciar sesión.");
+      return;
+    }
+
+    await executeDeposit({
+      receiver: depositData.receiver,
+      sender: senderId,
+      amount: Number(depositData.amount),
+      type: depositData.type,
+    });
+  };
+
   return (
     <div className="transfer-container">
       <div className="service-header-image">
@@ -122,15 +164,19 @@ const Transfer = () => {
             Transferir
           </button>
           <button
+            className={`tab-btn ${activeTab === "deposits" ? "active" : ""}`}
+            onClick={() => handleTabChange("deposits")}
+          >
+            Depósitos
+          </button>
+          <button
             className={`tab-btn ${activeTab === "history" ? "active" : ""}`}
             onClick={() => handleTabChange("history")}
           >
             Servicios
           </button>
-
         </div>
       </div>
-
       {activeTab === "transfer" && (
         <form className="transfer-form" onSubmit={handleTransfer}>
           {!accounts ? (
@@ -158,7 +204,6 @@ const Transfer = () => {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="amount">Monto</label>
                 <div className="amount-input">
@@ -176,7 +221,6 @@ const Transfer = () => {
                   />
                 </div>
               </div>
-
               <div className="account-types">
                 <div className="form-group">
                   <label>Cuenta origen</label>
@@ -194,7 +238,6 @@ const Transfer = () => {
                     ))}
                   </select>
                 </div>
-
                 <div className="form-group">
                   <label>Cuenta destino</label>
                   <select
@@ -208,7 +251,6 @@ const Transfer = () => {
                   </select>
                 </div>
               </div>
-
               <div className="form-group">
                 <label htmlFor="note">Nota (opcional)</label>
                 <textarea
@@ -220,7 +262,6 @@ const Transfer = () => {
                   rows="3"
                 />
               </div>
-
               <button
                 className="transfer-btn"
                 type="submit"
@@ -236,7 +277,63 @@ const Transfer = () => {
           )}
         </form>
       )}
+      {activeTab === "deposits" && (
+        <form className="transfer-form" onSubmit={handleDeposit}>
+          <div className="form-group">
+            <label htmlFor="deposit-receiver">No. Cuenta</label>
+            <input
+              type="text"
+              id="deposit-receiver"
+              name="receiver"
+              placeholder="Número de cuenta del destinatario"
+              value={depositData.receiver}
+              onChange={handleDepositInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="deposit-amount">Monto</label>
+            <div className="amount-input">
+              <span>Q</span>
+              <input
+                type="number"
+                id="deposit-amount"
+                name="amount"
+                placeholder="0.00"
+                value={depositData.amount}
+                onChange={handleDepositInputChange}
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Tipo de cuenta destino</label>
+            <select
+              name="type"
+              value={depositData.type}
+              onChange={handleDepositInputChange}
+            >
+              <option value="monetary">Monetaria</option>
+              <option value="saving">Ahorro</option>
+              <option value="foreing">Moneda extranjera</option>
+            </select>
+          </div>
+          <button
+            className="transfer-btn"
+            type="submit"
+            disabled={depositLoading}
+          >
+            {depositLoading ? "Procesando..." : "Realizar depósito"}
+          </button>
 
+          {depositError && <p style={{ color: "red" }}>{depositError}</p>}
+          {depositResult && (
+            <p style={{ color: "green" }}>¡Depósito realizado exitosamente!</p>
+          )}
+        </form>
+      )}
       {activeTab === "history" && (
         <div className="history-container">
           <div className="history-header">
