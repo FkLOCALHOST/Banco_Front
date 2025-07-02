@@ -1,10 +1,51 @@
 import React from 'react';
 import { FiArrowUpRight, FiArrowDownLeft } from 'react-icons/fi';
 import "../../assets/styles/historyTable.css"
-import useHistory from "../../shared/hooks/history/useHistory";
+import { useHistoryOfTransactions } from "../../shared/hooks/transfer/useHistoryOfTransactions";
+
+function getUidFromCookie() {
+  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+  if (!userCookie) {
+    return null;
+  }
+  try {
+    const user = JSON.parse(decodeURIComponent(userCookie[2]));
+    return user.uid || user.id || user.userDetails?.uid || null;
+  } catch {
+    return null;
+  }
+}
 
 const HistoryTable = () => {
-  const { history, loading, error } = useHistory();
+  const uid = getUidFromCookie();
+  const { history, loading, error } = useHistoryOfTransactions(uid);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatAmount = (amount) => {
+    return new Intl.NumberFormat('es-GT', {
+      style: 'currency',
+      currency: 'GTQ'
+    }).format(amount);
+  };
+
+  const getAccountInfo = (transaction) => {
+    if (transaction.type === 'send') {
+      return `Hacia: ${transaction.receiver}`;
+    } else if (transaction.type === 'receive') {
+      return `De: ${transaction.sender}`;
+    }
+    return 'N/A';
+  };
 
   if (loading) {
     return <div className="history-container"><p>Cargando historial...</p></div>;
@@ -36,29 +77,29 @@ const HistoryTable = () => {
                 <td colSpan={5}>No hay transacciones.</td>
               </tr>
             ) : (
-              history.map((transactionId) => (
-                <tr key={transactionId}>
-                  <td>
-                    {/* No hay info de tipo, solo ID */}
-                    <span className="transaction-type send">
-                      <FiArrowUpRight /> Enviado
-                    </span>
-                  </td>
-                  <td className="amount-send">
-                    {/* Sin monto, solo ID */}
-                    Q -
-                  </td>
-                  <td>{transactionId}</td>
-                  <td>
-                    {/* Sin fecha */}
-                    -
-                  </td>
-                  <td>
-                    {/* Sin descripción */}
-                    -
-                  </td>
-                </tr>
-              ))
+              history.map((transaction) => {
+                const isNegative = transaction.type === 'send';
+                
+                return (
+                  <tr key={transaction.id}>
+                    <td>
+                      <span className={`transaction-type ${transaction.type}`}>
+                        {transaction.type === 'send' ? (
+                          <><FiArrowUpRight /> Enviado</>
+                        ) : (
+                          <><FiArrowDownLeft /> Recibido</>
+                        )}
+                      </span>
+                    </td>
+                    <td className={isNegative ? 'amount-send' : 'amount-receive'}>
+                      {isNegative ? '-' : '+'}{formatAmount(transaction.amount)}
+                    </td>
+                    <td>{getAccountInfo(transaction)}</td>
+                    <td>{formatDate(transaction.date)}</td>
+                    <td>{transaction.description}</td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
