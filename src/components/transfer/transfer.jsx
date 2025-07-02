@@ -66,13 +66,6 @@ const Transfer = () => {
           >
             Transferir
           </button>
-          <button
-            className={`tab-btn ${activeTab === "history" ? "active" : ""}`}
-            onClick={() => handleTabChange("history")}
-          >
-            Servicios
-          </button>
-          
         </div>
       </div>
 
@@ -153,15 +146,6 @@ const Transfer = () => {
             <p style={{ color: "green" }}>¡Transferencia realizada!</p>
           )}
         </form>
-      )}
-
-      {activeTab === "history" && (
-        <div className="history-container">
-          <div className="history-header">
-            <h3>Últimas transacciones</h3>
-            <button className="view-all-btn">Ver todo</button>
-          </div>
-        </div>
       )}
     </div>
   );
