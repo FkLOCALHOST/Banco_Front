@@ -2,28 +2,83 @@ import React, { useState } from "react";
 import "../../assets/styles/transfer.css";
 import serviceHeaderImage from "../../assets/HeaderTR.png";
 import useRelizeTransfer from "../../shared/hooks/transfer/useRelizeTransfer";
+import { useGetAccounts } from "../../shared/hooks/accounts/useGetAccounts";
+import useCurrentUser from "../../shared/hooks/auth/useNameUser";
 
 const Transfer = () => {
+  const user = useCurrentUser();
+  const uid = user?.id || null;
+  const { accounts } = useGetAccounts(uid);
+
   const [activeTab, setActiveTab] = useState("transfer");
   const [formData, setFormData] = useState({
     receiver: "",
-    sender: "", // <-- deberías obtener el ID del usuario logueado aquí
+    sender: "",
+    senderAccount: "",
     amount: "",
-    type: "monetary",
     typeSender: "saving",
+    typeRecive: "monetary",
     note: "",
   });
 
+
   const { relizeTransfer, loading, error, result } = useRelizeTransfer();
+
+  const getAccountOptions = () => {
+    if (!accounts) return [];
+
+    const accountOptions = [];
+
+    if (accounts.noAccount) {
+      accountOptions.push({
+        value: "monetary",
+        accountNumber: accounts.noAccount,
+        label: `Cuenta Corriente - ${accounts.noAccount}`,
+        balance: accounts.noAccountBalance || 0,
+        displayText: `Cuenta Corriente - ${accounts.noAccount} (Q${accounts.noAccountBalance || '0.00'})`
+      });
+    }
+
+    if (accounts.savingAccount) {
+      accountOptions.push({
+        value: "saving",
+        accountNumber: accounts.savingAccount,
+        label: `Cuenta de Ahorros - ${accounts.savingAccount}`,
+        balance: accounts.savingAccountBalance || 0,
+        displayText: `Cuenta de Ahorros - ${accounts.savingAccount} (Q${accounts.savingAccountBalance || '0.00'})`
+      });
+    }
+
+    if (accounts.foreingCurrency) {
+      accountOptions.push({
+        value: "foreing",
+        accountNumber: accounts.foreingCurrency,
+        label: `Cuenta en Dólares - ${accounts.foreingCurrency}`,
+        balance: accounts.foreingCurrencyBalance || 0,
+        displayText: `Cuenta en Dólares - ${accounts.foreingCurrency} (USD$${accounts.foreingCurrencyBalance || '0.00'})`
+      });
+    }
+
+    return accountOptions;
+  };
 
   const handleTabChange = (tab) => setActiveTab(tab);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    if (name === "senderAccount") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+        typeSender: value,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleTransfer = async (e) => {
@@ -34,7 +89,7 @@ const Transfer = () => {
       try {
         const userData = JSON.parse(decodeURIComponent(userCookie[2]));
         senderId = userData.id || "";
-      } catch (err) {
+      } catch {
         senderId = "";
       }
     }
@@ -47,8 +102,8 @@ const Transfer = () => {
       receiver: formData.receiver,
       sender: senderId,
       amount: Number(formData.amount),
-      type: formData.type,
-      typeSender: formData.typeSender,
+      typeSend: formData.typeSender,
+      typeRecive: formData.typeRecive,
       note: formData.note,
     });
   };
@@ -72,82 +127,109 @@ const Transfer = () => {
           >
             Servicios
           </button>
-          
+
         </div>
       </div>
 
       {activeTab === "transfer" && (
         <form className="transfer-form" onSubmit={handleTransfer}>
-          <div className="form-group">
-            <label htmlFor="receiver">Cuenta destino</label>
-            <input
-              type="text"
-              id="receiver"
-              name="receiver"
-              placeholder="Correo o número de cuenta"
-              value={formData.receiver}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="amount">Monto</label>
-            <div className="amount-input">
-              <span>Q</span>
-              <input
-                type="number"
-                id="amount"
-                name="amount"
-                placeholder="0.00"
-                value={formData.amount}
-                onChange={handleInputChange}
-              />
+          {!accounts ? (
+            <div className="loading-accounts" style={{
+              textAlign: 'center',
+              padding: '20px',
+              color: '#6b7280',
+              background: '#f9fafb',
+              borderRadius: '8px',
+              margin: '20px 0'
+            }}>
+              <p>Cargando cuentas disponibles...</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="form-group">
+                <label htmlFor="receiver">Cuenta destino</label>
+                <input
+                  type="text"
+                  id="receiver"
+                  name="receiver"
+                  placeholder="Correo o número de cuenta"
+                  value={formData.receiver}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-          <div className="account-types">
-            <div className="form-group">
-              <label>Cuenta origen</label>
-              <select
-                name="typeSender"
-                value={formData.typeSender}
-                onChange={handleInputChange}
+              <div className="form-group">
+                <label htmlFor="amount">Monto</label>
+                <div className="amount-input">
+                  <span>Q</span>
+                  <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    placeholder="0.00"
+                    value={formData.amount}
+                    onChange={handleInputChange}
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="account-types">
+                <div className="form-group">
+                  <label>Cuenta origen</label>
+                  <select
+                    name="senderAccount"
+                    value={formData.senderAccount}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Selecciona una cuenta</option>
+                    {getAccountOptions().map((account) => (
+                      <option key={account.value} value={account.value}>
+                        {account.displayText}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Cuenta destino</label>
+                  <select
+                    name="typeRecive"
+                    value={formData.typeRecive}
+                    onChange={handleInputChange}
+                  >
+                    <option value="monetary">Monetaria</option>
+                    <option value="saving">Ahorro</option>
+                    <option value="foreing">Moneda extranjera</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="note">Nota (opcional)</label>
+                <textarea
+                  id="note"
+                  name="note"
+                  placeholder="Agrega una descripción"
+                  value={formData.note}
+                  onChange={handleInputChange}
+                  rows="3"
+                />
+              </div>
+
+              <button
+                className="transfer-btn"
+                type="submit"
+                disabled={loading || !formData.senderAccount}
               >
-                <option value="monetary">Monetaria</option>
-                <option value="saving">Ahorro</option>
-                <option value="foreing">Moneda extranjera</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Cuenta destino</label>
-              <select
-                name="typeRecive"
-                value={formData.typeRecive}
-                onChange={handleInputChange}
-              >
-                <option value="monetary">Monetaria</option>
-                <option value="saving">Ahorro</option>
-                <option value="foreing">Moneda extranjera</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="note">Nota (opcional)</label>
-            <textarea
-              id="note"
-              name="note"
-              placeholder="Agrega una descripción"
-              value={formData.note}
-              onChange={handleInputChange}
-              rows="3"
-            />
-          </div>
-
-          <button className="transfer-btn" type="submit" disabled={loading}>
-            {loading ? "Procesando..." : "Transferir ahora"}
-          </button>
+                {loading ? "Procesando..." : "Transferir ahora"}
+              </button>
+            </>
+          )}
           {error && <p style={{ color: "red" }}>{error}</p>}
           {result && (
             <p style={{ color: "green" }}>¡Transferencia realizada!</p>

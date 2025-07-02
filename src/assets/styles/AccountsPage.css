@@ -1,0 +1,511 @@
+.accounts-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.accounts-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #25263c;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accounts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+    .accounts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .accounts-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.account-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ed3a57 0%, #25263c 100%);
+}
+
+.account-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 8px 16px rgba(0, 0, 0, 0.06);
+    border-color: rgba(237, 58, 87, 0.2);
+}
+
+.account-type {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #25263c;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.account-label {
+    color: #6b7280;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.account-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 12px 0 16px 0;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+    border: 2px solid;
+    transition: all 0.3s ease;
+}
+
+.account-number.normal {
+    color: #1e40af;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-color: #3b82f6;
+}
+
+.account-number.savings {
+    color: #059669;
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-color: #10b981;
+}
+
+.account-number.dollars {
+    color: #0d9488;
+    background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+    border-color: #14b8a6;
+}
+
+.account-number:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.account-balance {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 20px 0;
+    text-align: center;
+    padding: 16px 20px;
+    border-radius: 16px;
+    position: relative;
+    background: linear-gradient(135deg, #25263c 0%, #ed3a57 100%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 8px 16px rgba(37, 38, 60, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.account-balance::before {
+    content: 'Q';
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin-right: 8px;
+}
+
+.account-balance.dollars::before {
+    content: 'USD $';
+}
+
+.account-info-section {
+    margin-bottom: 20px;
+}
+
+.account-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.account-card-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.account-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.account-mov {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 600;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border-radius: 8px;
+    border-left: 4px solid #ed3a57;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.account-mov::before {
+    content: '📊';
+    font-size: 1rem;
+}
+
+.loading-text,
+.error-text,
+.empty-text {
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #25263c;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 2px solid #f3f4f6;
+}
+
+.error-text {
+    color: #dc2626;
+    border-color: #fecaca;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.loading-text {
+    border-color: #dbeafe;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+/* Animación para loading */
+.loading-text::after {
+    content: '...';
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0%, 33% { content: '.'; }
+    34%, 66% { content: '..'; }
+    67%, 100% { content: '...'; }
+}
+
+/* Efectos adicionales para mejorar la experiencia */
+.account-card:nth-child(1) { animation-delay: 0.1s; }
+.account-card:nth-child(2) { animation-delay: 0.2s; }
+.account-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account-card {
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+/* Responsive improvements */
+@media (max-width: 1200px) {
+    main {
+        margin-left: 200px !important;
+        padding: 1.5rem 0 0 1.5rem !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    main {
+        margin-left: 0 !important;
+        padding: 1rem !important;
+        width: 100% !important;
+    }
+    
+    .accounts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    
+    .account-card {
+        min-height: 280px;
+    }
+    
+    .account-balance {
+        font-size: 1.75rem;
+        padding: 14px 18px;
+    }
+    
+    .account-number {
+        font-size: 1.375rem;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .accounts-container {
+        padding: 20px 16px;
+    }
+    
+    .accounts-title {
+        font-size: 1.875rem;
+        margin-bottom: 28px;
+    }
+    
+    .accounts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .account-card {
+        min-height: 260px;
+        padding: 0;
+    }
+    
+    .account-card-header {
+        padding: 20px 20px 16px 20px;
+        margin-bottom: 16px;
+    }
+    
+    .account-card-body {
+        padding: 0 20px;
+    }
+    
+    .account-type {
+        font-size: 1.25rem;
+        margin-bottom: 12px;
+    }
+    
+    .account-number {
+        font-size: 1.125rem;
+        padding: 8px 12px;
+        margin: 8px 0 12px 0;
+    }
+    
+    .account-balance {
+        font-size: 1.5rem;
+        padding: 12px 16px;
+        margin: 16px 0;
+    }
+    
+    .account-card-footer {
+        padding: 16px 20px 24px 20px;
+    }
+    
+    .account-mov {
+        font-size: 0.875rem;
+        padding: 6px 10px;
+        margin-top: 12px;
+    }
+    
+    .favorite-btn {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+        margin-top: 8px;
+    }
+    
+    .favorite-icon {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .accounts-container {
+        padding: 16px 12px;
+    }
+    
+    .accounts-title {
+        font-size: 1.625rem;
+        margin-bottom: 24px;
+    }
+    
+    .account-card {
+        min-height: 240px;
+    }
+    
+    .account-card-header {
+        padding: 16px 16px 12px 16px;
+        margin-bottom: 12px;
+    }
+    
+    .account-card-body {
+        padding: 0 16px;
+    }
+    
+    .account-type {
+        font-size: 1.125rem;
+        margin-bottom: 10px;
+    }
+    
+    .account-label {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+    
+    .account-number {
+        font-size: 1rem;
+        padding: 6px 10px;
+        margin: 6px 0 10px 0;
+    }
+    
+    .account-balance {
+        font-size: 1.375rem;
+        padding: 10px 14px;
+        margin: 12px 0;
+    }
+    
+    .account-balance::before {
+        font-size: 1.25rem;
+        margin-right: 6px;
+    }
+    
+    .account-card-footer {
+        padding: 12px 16px 20px 16px;
+    }
+    
+    .account-mov {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+        margin-top: 10px;
+    }
+    
+    .favorite-btn {
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        margin-top: 6px;
+    }
+    
+    .favorite-icon {
+        font-size: 1.125rem;
+    }
+    
+    /* Ajustes para pantallas muy pequeñas */
+    main {
+        padding: 0.75rem !important;
+    }
+}
+
+.favorite-btn {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 12px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.favorite-btn:hover {
+    background: rgba(237, 58, 87, 0.1);
+    transform: scale(1.1);
+}
+
+.favorite-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+.favorite-btn.active .favorite-icon {
+    color: #ed3a57;
+    fill: #ed3a57;
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.2);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.2);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+
+.favorite-icon {
+    font-size: 1.5rem;
+    color: #374151;
+    transition: all 0.3s ease;
+    stroke-width: 2;
+}
+
+.account-card-footer {
+    padding: 20px 24px 28px 24px;
+    border-top: 1px solid #e2e8f0;
+    background: #fafbfc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.favorite-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.favorite-btn:disabled:hover {
+    background: transparent;
+    transform: none;
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+    transition: all 0.3s ease;
+}
+
+/* Animación suave para el botón de favoritos */
