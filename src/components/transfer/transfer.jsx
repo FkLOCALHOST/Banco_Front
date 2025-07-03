@@ -5,12 +5,14 @@ import useRelizeTransfer from "../../shared/hooks/transfer/useRelizeTransfer";
 import useDepositTransaction from "../../shared/hooks/transfer/useDepositTransaction";
 import { useGetAccounts } from "../../shared/hooks/accounts/useGetAccounts";
 import useCurrentUser from "../../shared/hooks/auth/useNameUser";
+import useUserRole from "../../memo/useUserRole";
 import { TransferForm, DepositForm, HistoryTab } from "../forms/transaction";
 
 const Transfer = () => {
   const user = useCurrentUser();
   const uid = user?.id || null;
   const { accounts } = useGetAccounts(uid);
+  const { isAdmin } = useUserRole();
 
   const [activeTab, setActiveTab] = useState("transfer");
   const [formData, setFormData] = useState({
@@ -163,12 +165,14 @@ const [depositData, setDepositData] = useState({
           >
             Transferir
           </button>
-          <button
-            className={`tab-btn ${activeTab === "deposits" ? "active" : ""}`}
-            onClick={() => handleTabChange("deposits")}
-          >
-            Depósitos
-          </button>
+          {isAdmin && (
+            <button
+              className={`tab-btn ${activeTab === "deposits" ? "active" : ""}`}
+              onClick={() => handleTabChange("deposits")}
+            >
+              Depósitos
+            </button>
+          )}
           <button
             className={`tab-btn ${activeTab === "history" ? "active" : ""}`}
             onClick={() => handleTabChange("history")}
@@ -189,7 +193,7 @@ const [depositData, setDepositData] = useState({
           getAccountOptions={getAccountOptions}
         />
       )}
-      {activeTab === "deposits" && (
+      {activeTab === "deposits" && isAdmin && (
         <DepositForm
           depositData={depositData}
           depositLoading={depositLoading}
