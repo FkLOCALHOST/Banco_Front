@@ -21,6 +21,12 @@ const Sidebar = () => {
       <nav>
         <ul className="sidebar-links">
           <li>
+            <a onClick={() => navigate('/cuenta')} style={{cursor: 'pointer'}}>
+              <FiUser className="sidebar-link-icon" />
+              Mi Cuenta
+            </a>
+          </li>
+          <li>
             <a onClick={() => navigate('/services')} style={{cursor: 'pointer'}}>
               <FiUser className="sidebar-link-icon" />
               Servicios
