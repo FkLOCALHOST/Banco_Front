@@ -157,3 +157,30 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+/* Estilos para el grupo de botones */
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.button-group .transfer-btn {
+  flex: 1;
+  max-width: none;
+  margin: 0;
+}
+
+/* Responsive para botones */
+@media (max-width: 480px) {
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .button-group .transfer-btn {
+    width: 100%;
+    max-width: none;
+  }
+}
