@@ -18,6 +18,7 @@ import ServicesInstitutions from "./pages/services/servicesInstitutions";
 import ServicesDonate from "./pages/services/servicesDonate";
 import { MoneyAccounts } from "./components/moneyAccounts/MoneyAccounts.jsx";
 import { FavoriteAccountsPage } from "./components/moneyAccounts/FavoriteAccountsPage.jsx";
+import Register from "./components/auth/register.jsx";
 
 export const routes = [
   {
@@ -150,6 +151,12 @@ export const routes = [
       <CookieValidator>
         <FavoriteAccountsPage />
       </CookieValidator>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+        <Register/>
     ),
   },
 ];
