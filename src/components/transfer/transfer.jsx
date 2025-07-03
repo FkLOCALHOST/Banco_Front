@@ -5,6 +5,7 @@ import useRelizeTransfer from "../../shared/hooks/transfer/useRelizeTransfer";
 import useDepositTransaction from "../../shared/hooks/transfer/useDepositTransaction";
 import { useGetAccounts } from "../../shared/hooks/accounts/useGetAccounts";
 import useCurrentUser from "../../shared/hooks/auth/useNameUser";
+import { TransferForm, DepositForm, HistoryTab } from "../forms/transaction";
 
 const Transfer = () => {
   const user = useCurrentUser();
@@ -28,7 +29,6 @@ const [depositData, setDepositData] = useState({
     amount: "",
     type: "monetary",
   });
-
 
   const { relizeTransfer, loading, error, result } = useRelizeTransfer();
   const { executeDeposit, loading: depositLoading, error: depositError, result: depositResult } = useDepositTransaction();
@@ -178,169 +178,29 @@ const [depositData, setDepositData] = useState({
         </div>
       </div>
       {activeTab === "transfer" && (
-        <form className="transfer-form" onSubmit={handleTransfer}>
-          {!accounts ? (
-            <div className="loading-accounts" style={{
-              textAlign: 'center',
-              padding: '20px',
-              color: '#6b7280',
-              background: '#f9fafb',
-              borderRadius: '8px',
-              margin: '20px 0'
-            }}>
-              <p>Cargando cuentas disponibles...</p>
-            </div>
-          ) : (
-            <>
-              <div className="form-group">
-                <label htmlFor="receiver">Cuenta destino</label>
-                <input
-                  type="text"
-                  id="receiver"
-                  name="receiver"
-                  placeholder="Correo o número de cuenta"
-                  value={formData.receiver}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="amount">Monto</label>
-                <div className="amount-input">
-                  <span>Q</span>
-                  <input
-                    type="number"
-                    id="amount"
-                    name="amount"
-                    placeholder="0.00"
-                    value={formData.amount}
-                    onChange={handleInputChange}
-                    min="0"
-                    step="0.01"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="account-types">
-                <div className="form-group">
-                  <label>Cuenta origen</label>
-                  <select
-                    name="senderAccount"
-                    value={formData.senderAccount}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Selecciona una cuenta</option>
-                    {getAccountOptions().map((account) => (
-                      <option key={account.value} value={account.value}>
-                        {account.displayText}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Cuenta destino</label>
-                  <select
-                    name="typeRecive"
-                    value={formData.typeRecive}
-                    onChange={handleInputChange}
-                  >
-                    <option value="monetary">Monetaria</option>
-                    <option value="saving">Ahorro</option>
-                    <option value="foreing">Moneda extranjera</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="note">Nota (opcional)</label>
-                <textarea
-                  id="note"
-                  name="note"
-                  placeholder="Agrega una descripción"
-                  value={formData.note}
-                  onChange={handleInputChange}
-                  rows="3"
-                />
-              </div>
-              <button
-                className="transfer-btn"
-                type="submit"
-                disabled={loading || !formData.senderAccount}
-              >
-                {loading ? "Procesando..." : "Transferir ahora"}
-              </button>
-            </>
-          )}
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {result && (
-            <p style={{ color: "green" }}>¡Transferencia realizada!</p>
-          )}
-        </form>
+        <TransferForm
+          formData={formData}
+          accounts={accounts}
+          loading={loading}
+          error={error}
+          result={result}
+          onInputChange={handleInputChange}
+          onSubmit={handleTransfer}
+          getAccountOptions={getAccountOptions}
+        />
       )}
       {activeTab === "deposits" && (
-        <form className="transfer-form" onSubmit={handleDeposit}>
-          <div className="form-group">
-            <label htmlFor="deposit-receiver">No. Cuenta</label>
-            <input
-              type="text"
-              id="deposit-receiver"
-              name="receiver"
-              placeholder="Número de cuenta del destinatario"
-              value={depositData.receiver}
-              onChange={handleDepositInputChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="deposit-amount">Monto</label>
-            <div className="amount-input">
-              <span>Q</span>
-              <input
-                type="number"
-                id="deposit-amount"
-                name="amount"
-                placeholder="0.00"
-                value={depositData.amount}
-                onChange={handleDepositInputChange}
-                min="0"
-                step="0.01"
-                required
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <label>Tipo de cuenta destino</label>
-            <select
-              name="type"
-              value={depositData.type}
-              onChange={handleDepositInputChange}
-            >
-              <option value="monetary">Monetaria</option>
-              <option value="saving">Ahorro</option>
-              <option value="foreing">Moneda extranjera</option>
-            </select>
-          </div>
-          <button
-            className="transfer-btn"
-            type="submit"
-            disabled={depositLoading}
-          >
-            {depositLoading ? "Procesando..." : "Realizar depósito"}
-          </button>
-
-          {depositError && <p style={{ color: "red" }}>{depositError}</p>}
-          {depositResult && (
-            <p style={{ color: "green" }}>¡Depósito realizado exitosamente!</p>
-          )}
-        </form>
+        <DepositForm
+          depositData={depositData}
+          depositLoading={depositLoading}
+          depositError={depositError}
+          depositResult={depositResult}
+          onInputChange={handleDepositInputChange}
+          onSubmit={handleDeposit}
+        />
       )}
       {activeTab === "history" && (
-        <div className="history-container">
-          <div className="history-header">
-            <h3>Últimas transacciones</h3>
-            <button className="view-all-btn">Ver todo</button>
-          </div>
-        </div>
+        <HistoryTab />
       )}
     </div>
   );
