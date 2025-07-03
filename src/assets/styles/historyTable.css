@@ -42,35 +42,112 @@
     font-weight: 600;
   }
   
-  .transaction-type {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-  }
-  
-  .transaction-type.send {
-    background-color: #fff0f0;
-    color: #ed3a57;
-  }
-  
-  .transaction-type.receive {
-    background-color: #f0fff0;
-    color: #27ae60;
-  }
-  
-  .amount-send {
-    color: #ed3a57;
-    font-weight: 600;
-  }
-  
-  .amount-receive {
-    color: #27ae60;
-    font-weight: 600;
-  }
-  
+  /* Estilos para el historial de transacciones */
+.transaction-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.transaction-type.send {
+  color: #dc2626; /* Rojo para enviado */
+}
+
+.transaction-type.receive {
+  color: #16a34a; /* Verde para recibido */
+}
+
+.amount-send {
+  color: #dc2626; /* Rojo para montos negativos (enviado) */
+  font-weight: 600;
+}
+
+.amount-receive {
+  color: #16a34a; /* Verde para montos positivos (recibido) */
+  font-weight: 600;
+}
+
+.arrow-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.transaction-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.amount-negative {
+  color: #dc2626; /* Rojo para montos negativos (enviado) */
+  font-weight: 600;
+}
+
+.amount-positive {
+  color: #16a34a; /* Verde para montos positivos (recibido) */
+  font-weight: 600;
+}
+
+.transaction-id {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transaction-account {
+  font-weight: 500;
+  color: #374151;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transaction-date {
+  color: #6b7280;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.transaction-description {
+  color: #4b5563;
+  font-size: 0.9rem;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hover effects para mejor UX */
+.history-table tbody tr:hover .transaction-id {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.history-table tbody tr:hover .transaction-account {
+  color: #1f2937;
+}
+
+.history-table tbody tr:hover .transaction-description {
+  color: #374151;
+}
+
+.history-table tbody tr:hover .transaction-type.send {
+  color: #b91c1c;
+}
+
+.history-table tbody tr:hover .transaction-type.receive {
+  color: #15803d;
+}
+
   .time {
     color: #7f8c8d;
     font-size: 0.9em;

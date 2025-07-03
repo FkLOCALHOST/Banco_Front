@@ -16,6 +16,8 @@ import ServicesEducacion from "./pages/services/servicesEducacion";
 import ServicesBasic from "./pages/services/servicesBasic";
 import ServicesInstitutions from "./pages/services/servicesInstitutions";
 import ServicesDonate from "./pages/services/servicesDonate";
+import { MoneyAccounts } from "./components/moneyAccounts/MoneyAccounts.jsx";
+import { FavoriteAccountsPage } from "./components/moneyAccounts/FavoriteAccountsPage.jsx";
 
 export const routes = [
   {
@@ -131,6 +133,22 @@ export const routes = [
     element: (
       <CookieValidator>
         <MoneyAccountsPage />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/my-accounts",
+    element: (
+      <CookieValidator>
+        <MoneyAccounts />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/my-favorite-accounts",
+    element: (
+      <CookieValidator>
+        <FavoriteAccountsPage />
       </CookieValidator>
     ),
   },
