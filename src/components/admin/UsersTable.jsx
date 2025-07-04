@@ -5,7 +5,7 @@ import "../../assets/styles/historyTable.css";
 import Navbar from '../navbar';
 import Sidebar from '../sideBar';
 
-const UsersTableAccount = () => {
+const UsersTable = () => {
     const { users, loading, error } = useGetAllUsers();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
@@ -27,6 +27,11 @@ const UsersTableAccount = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
+    const handleEdit = (userId) => {
+        // Aquí podrías redirigir, abrir modal o consola
+        console.log("Editar usuario:", userId);
+    };
+
     if (loading) return <div className="history-container"><p>Cargando usuarios...</p></div>;
     if (error) return <div className="history-container"><p>Error al cargar usuarios: {error}</p></div>;
 
@@ -36,41 +41,46 @@ const UsersTableAccount = () => {
             <Sidebar />
             <div className="history-container" style={{ margin: "5% 15%" }}>
                 <div className="history-header">
-                    <h2>Lista de Usuarios</h2>
+                    <h2>Datos Personales de Usuarios</h2>
                 </div>
                 <div className="history-table-container">
                     <table className="history-table">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>ID Wallet</th>
-                                <th>No. Cuenta Corriente</th>
-                                <th>Saldo Corriente</th>
-                                <th>No. Cuenta Ahorro</th>
-                                <th>Saldo Ahorro</th>
-                                <th>No. Cuenta Dólares</th>
-                                <th>Saldo Dólares</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>DPI</th>
+                                <th>Dirección</th>
+                                <th>Profesión</th>
+                                <th>Ingresos Mensuales</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentUsers.length === 0 ? (
-                                <tr><td colSpan={8}>No hay usuarios disponibles.</td></tr>
+                                <tr><td colSpan={10}>No hay usuarios disponibles.</td></tr>
                             ) : (
-                                currentUsers.map((user) => {
-                                    const wallet = user.wallet;
-                                    return (
-                                        <tr key={user.uid}>
-                                            <td>{user.name}</td>
-                                            <td>{wallet?._id || 'Sin wallet'}</td>
-                                            <td>{wallet?.noAccount || 'N/A'}</td>
-                                            <td>Q {wallet?.noAccountBalance ?? 'N/A'}</td>
-                                            <td>{wallet?.savingAccount || 'N/A'}</td>
-                                            <td>Q {wallet?.savingAccountBalance ?? 'N/A'}</td>
-                                            <td>{wallet?.foreingCurrency || 'N/A'}</td>
-                                            <td>$ {wallet?.foreingCurrencyBalance ?? 'N/A'}</td>
-                                        </tr>
-                                    );
-                                })
+                                currentUsers.map((user) => (
+                                    <tr key={user.uid}>
+                                        <td>{user.name}</td>
+                                        <td>{user.userName}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.phone}</td>
+                                        <td>{user.dpi || 'N/A'}</td>
+                                        <td>{user.address || 'N/A'}</td>
+                                        <td>{user.workName || 'N/A'}</td>
+                                        <td>Q {user.monthEarnings?.toLocaleString() || '0.00'}</td>
+                                        <td>{user.status ? "Activo" : "Inactivo"}</td>
+                                        <td>
+                                            <button onClick={() => handleEdit(user.uid)} className="edit-btn">
+                                                Editar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
                             )}
                         </tbody>
                     </table>
@@ -106,4 +116,4 @@ const UsersTableAccount = () => {
     );
 };
 
-export default UsersTableAccount;
+export default UsersTable;

@@ -36,7 +36,7 @@ const AdminOptionCards = () => {
             <div className="cards-grid">
             <div
               className="account-card info"
-              onClick={() => navigate('/admin/users')}
+              onClick={() => navigate('/admin/get-users-info')}
               style={{ cursor: 'pointer' }}
             >
               <div className="card-icon">

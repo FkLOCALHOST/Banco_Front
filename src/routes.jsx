@@ -22,6 +22,8 @@ import Register from "./components/auth/register.jsx";
 import AdminOptionCards from "./components/admin/AdminOptionCards.jsx";
 import GenerateAccount from "./components/admin/GenerateAccount.jsx";
 import UsersTableAccount from "./components/admin/UsersTableAccount.jsx";
+import UsersTable from "./components/admin/UsersTable.jsx";
+import EditAcountAdmin from "./components/admin/dependencies/EditAcountAdmin.jsx";
 
 export const routes = [
   {
@@ -183,6 +185,22 @@ export const routes = [
     element: (
       <CookieValidator>
         <UsersTableAccount/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/get-users-info",
+    element: (
+      <CookieValidator>
+        <UsersTable/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/edit/:id",
+    element: (
+      <CookieValidator>
+        <EditAcountAdmin/>
       </CookieValidator>
     ),
   },
