@@ -20,14 +20,23 @@ const AccountCards = () => {
         <h2 className="account-title">Cuenta</h2>
       </div>
       
-      <div className="cards-grid">        <div className="account-card info">
+      <div className="cards-grid">
+        <div
+          className="account-card info"
+          onClick={() => navigate('/cuenta')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="card-icon">
             <FiInfo />
           </div>
           <h3 className="card-title">Información de<br />la cuenta</h3>
         </div>
 
-        <div className="account-card edit">
+        <div
+          className="account-card edit"
+          onClick={() => navigate('/editar-cuenta')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="card-icon">
             <FiEdit3 />
           </div>
@@ -45,7 +54,10 @@ const AccountCards = () => {
           <h3 className="card-title">Servicio al<br />cliente</h3>
         </div>
 
-        <div className="account-card favorites">
+        <div className="account-card favorites"
+          onClick={() => navigate('/my-favorite-accounts')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="card-icon">
             <FiHeart />
           </div>

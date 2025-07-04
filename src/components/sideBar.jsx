@@ -4,13 +4,16 @@ import {
   FiCreditCard, 
   FiSend, 
   FiClock, 
-  FiDollarSign 
+  FiShield,
+  FiHome
 } from 'react-icons/fi';
 import '../assets/styles/sidebar.css'; 
 import { useNavigate } from 'react-router-dom';
+import useUserRole from '../memo/useUserRole';
 
 const Sidebar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { isAdmin } = useUserRole();
   return (
     <aside className="sidebar">
       <div className="sidebar-user">
@@ -21,13 +24,26 @@ const Sidebar = () => {
       <nav>
         <ul className="sidebar-links">
           <li>
-            <a href="#">
+            <a onClick={() => navigate('/Home')} style={{cursor: 'pointer'}}>
+              <FiHome className="sidebar-link-icon" />
+              Inicio
+            </a>
+          </li>
+          <li></li>
+          <li>
+            <a onClick={() => navigate('/cuenta')} style={{cursor: 'pointer'}}>
               <FiUser className="sidebar-link-icon" />
-              Cuenta BG
+              Mi Cuenta
             </a>
           </li>
           <li>
-            <a href="#">
+            <a onClick={() => navigate('/services')} style={{cursor: 'pointer'}}>
+              <FiUser className="sidebar-link-icon" />
+              Servicios
+            </a>
+          </li>
+          <li>
+            <a onClick={() => navigate('/money-accounts')} style={{cursor: 'pointer'}}>
               <FiCreditCard className="sidebar-link-icon" />
               Cuentas
             </a>
@@ -44,12 +60,14 @@ const Sidebar = () => {
               Historial
             </a>
           </li>
-          <li>
-            <a href="#">
-              <FiDollarSign className="sidebar-link-icon" />
-              Crédito
-            </a>
-          </li>
+          {isAdmin && (
+            <li>
+              <a onClick={() => navigate('/admin-options')} style={{cursor: 'pointer'}}>
+                <FiShield className="sidebar-link-icon" />
+                Opciones de administrador
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </aside>

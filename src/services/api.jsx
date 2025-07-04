@@ -293,9 +293,41 @@ export const getWalletMovements = async (userId) => {
   }
 };
 
-export const addFavoriteAccount = async (uid) => {
+export const addFavoriteAccount = async (data) => {
   try {
-    return await apiWallet.patch(`/wallet/addFavoriteAccount/${uid}`);
+    return await apiWallet.post(`/user/addFavorite`,data);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getHistoryOfTransactions = async (uid) => {
+  try {
+    return await apiWallet.get(`/user/getHistoryOfTransactions/${uid}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getTransactionById = async (transactionId) => {
+  try {
+    return await apiWallet.get(`/transaction/getTransaction/${transactionId}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const getAccounts = async (uid) => {
+  try {
+    return await apiWallet.get(`/user/getWallet/${uid}`);
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+};
+
+export const addFavoriteAccountWallet = async (uid,data) => {
+  try {
+    return await apiWallet.patch(`/wallet/addFavoriteAccount/${uid}`,data);
   } catch (error) {
     return { error: true, message: error.message };
   }

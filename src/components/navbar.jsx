@@ -1,8 +1,9 @@
 import React from "react";
-import { FiHelpCircle, FiBell, FiLogOut } from "react-icons/fi";
+import { FiHelpCircle, FiLogOut } from "react-icons/fi";
 import "../assets/styles/navbar.css";
 import useCurrentUser from "../shared/hooks/auth/useNameUser";
 import logo from "../assets/logoBanco.png";
+import Notificaciones from "./notifications"; // Importa el componente
 
 const deleteCookie = (name) => {
   document.cookie = `${name}=; Max-Age=0; path=/;`;
@@ -18,7 +19,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
+      <div
+        className="navbar-logo"
+        onClick={() => (window.location.href = "/home")}
+        style={{ cursor: "pointer" }}
+      >
         <img
           src={logo}
           alt="Logo"
@@ -33,12 +38,7 @@ const Navbar = () => {
           <button className="navbar-btn help-btn" title="Ayuda">
             <FiHelpCircle />
           </button>
-          <button
-            className="navbar-btn notification-btn"
-            title="Notificaciones"
-          >
-            <FiBell />
-          </button>
+          <Notificaciones />
           <a href="#" className="logout" title="Salir" onClick={handleLogout}>
             <span>salir</span>
             <FiLogOut />
