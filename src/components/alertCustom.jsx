@@ -31,7 +31,15 @@ const AlertCustom = ({ message, type = "success", onClose, duration = 2000 }) =>
         border: "2px solid #4BB543",
       }}
     >
-      <div style={{ position: "relative", width: 70, height: 70, marginBottom: "0.5rem" }}>
+      <div
+        style={{
+          position: "relative",
+          width: 70,
+          height: 70,
+          marginBottom: "0.5rem",
+          overflow: "hidden",
+        }}
+      >
         <svg width="70" height="70">
           <circle
             cx="35"
@@ -67,6 +75,8 @@ const AlertCustom = ({ message, type = "success", onClose, duration = 2000 }) =>
             width: 52,
             height: 52,
             pointerEvents: "none",
+            overflow: "visible", // Asegura que el SVG no recorte el checkmark
+            display: "block", // Previene scroll innecesario
           }}
         >
           <polyline
