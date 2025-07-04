@@ -1,10 +1,11 @@
 import React from 'react';
 import { 
   FiUsers, 
-  FiTrendingUp, 
   FiDollarSign, 
   FiPackage,
-  FiShield
+  FiShield,
+  FiTrendingUp,
+  FiBox
 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/accountCards.css';
@@ -79,7 +80,7 @@ const AdminOptionCards = () => {
             </div>
             <div 
               className="account-card info"
-              onClick={() => navigate('/admin/user-details')}
+              onClick={() => navigate('/admin/get-users')}
               style={{ cursor: 'pointer' }}
             >
               <div className="card-icon">
@@ -90,14 +91,14 @@ const AdminOptionCards = () => {
             </div>
             <div 
               className="account-card edit"
-              onClick={() => navigate('/admin/reports')}
+              onClick={() => navigate('/admin/generate-wallet')}
               style={{ cursor: 'pointer' }}
             >
               <div className="card-icon">
-                <FiTrendingUp />
+                <FiBox />
               </div>
-              <h3 className="card-title">Reportes y<br />Estadísticas</h3>
-              <p className="card-description" style={{ color: 'white' }}>Análisis general del sistema bancario</p>
+              <h3 className="card-title">Otorgar Cuentas</h3>
+              <p className="card-description" style={{ color: 'white' }}>Dar a los usuarios cuentas para su manejo</p>
             </div>            </div>
           </div>
         </div>

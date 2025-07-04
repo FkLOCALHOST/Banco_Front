@@ -20,6 +20,8 @@ import { MoneyAccounts } from "./components/moneyAccounts/MoneyAccounts.jsx";
 import { FavoriteAccountsPage } from "./components/moneyAccounts/FavoriteAccountsPage.jsx";
 import Register from "./components/auth/register.jsx";
 import AdminOptionCards from "./components/admin/AdminOptionCards.jsx";
+import GenerateAccount from "./components/admin/GenerateAccount.jsx";
+import UsersTableAccount from "./components/admin/UsersTableAccount.jsx";
 
 export const routes = [
   {
@@ -157,7 +159,7 @@ export const routes = [
   {
     path: "/register",
     element: (
-        <Register/>
+      <Register />
     ),
   },
   {
@@ -165,6 +167,22 @@ export const routes = [
     element: (
       <CookieValidator>
         <AdminOptionCards />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/generate-wallet",
+    element: (
+      <CookieValidator>
+        <GenerateAccount />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/get-users",
+    element: (
+      <CookieValidator>
+        <UsersTableAccount/>
       </CookieValidator>
     ),
   },
