@@ -18,7 +18,7 @@ const ClientService = () => {
       title: "WhatsApp Bancario",
       number: "WhatsApp BG",
       description: "Resuelve tus consultas de forma rápida y segura por mensajería",
-      icon: <FiMessageSquare size={28} />,
+      icon: <FiMessageSquare size={28} style={{overflow: "hidden"}} />,
       action: "Escribir",
       color: "whatsapp",
       availability: "En línea"

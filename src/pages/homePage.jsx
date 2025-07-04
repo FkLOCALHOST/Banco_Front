@@ -2,14 +2,15 @@ import React from "react";
 import Navbar from "../components/navbar.jsx";
 import Sidebar from "../components/sideBar.jsx";
 import AccountCards from "../components/dashboard/accountCards.jsx";
+import "../assets/styles/layout.css";
 
 export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex", marginTop: "64px" }}>
+      <div className="layout-container">
         <Sidebar />
-        <main style={{ marginLeft: "240px", width: "100%", padding: "0" }}>
+        <main className="main-content main-content-fullwidth">
           <AccountCards />
         </main>
       </div>

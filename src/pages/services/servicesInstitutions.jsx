@@ -5,6 +5,7 @@ import useGetServices from "../../shared/hooks/services/useGetServices";
 import { FiEdit3, FiTrash2, FiPlus, FiHeart } from "react-icons/fi";
 import useUserRole from "../../memo/useUserRole.js";
 import "../../assets/styles/services.css";
+import "../../assets/styles/layout.css";
 import { useNavigate } from "react-router-dom";
 
 const ServicesInstitutions = () => {
@@ -27,9 +28,9 @@ const ServicesInstitutions = () => {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex", marginTop: "64px" }}>
+      <div className="layout-container">
         <Sidebar />
-        <main className="services-main-container">
+        <main className="services-main-container main-content">
           <div
             style={{
               display: "flex",
