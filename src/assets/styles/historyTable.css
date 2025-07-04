@@ -1,8 +1,12 @@
+*{
+  overflow-x: hidden !important;
+}
+
 .history-container {
     padding: 20px;
     width: 100%;
     max-width: 1200px;
-    margin-left: 15%;
+    margin-left: 0 auto;
   }
   
   .history-header {
@@ -18,7 +22,7 @@
   }
   
   .history-table-container {
-    overflow-x: auto;
+    overflow-x: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
   }

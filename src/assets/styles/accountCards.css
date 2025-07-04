@@ -33,10 +33,13 @@
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; 
 }
+
 
 .account-card {
   background: linear-gradient(135deg, #25263c 0%, #1a1b28 100%);

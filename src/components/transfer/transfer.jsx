@@ -206,7 +206,6 @@ const Transfer = () => {
     });
   };
 
-  // Pre-fill form if coming from a service payment
   useEffect(() => {
     if (location.state && location.state.serviceTransfer) {
       setActiveTab("history");
@@ -328,7 +327,6 @@ const Transfer = () => {
               <p style={{ color: "green" }}>¡Pago realizado exitosamente!</p>
             )}
           </form>
-          <HistoryTab />
         </>
       )}
     </div>

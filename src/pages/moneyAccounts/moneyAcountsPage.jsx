@@ -2,6 +2,7 @@ import Navbar from "../../components/navbar.jsx";
 import Sidebar from "../../components/sideBar.jsx";
 import { FiCreditCard, FiHeart } from "react-icons/fi";
 import "../../assets/styles/accountCards.css";
+import "../../assets/styles/layout.css";
 import { useNavigate } from "react-router-dom";
 
 const MoneyAccountsPage = () => {
@@ -9,12 +10,11 @@ const MoneyAccountsPage = () => {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex", marginTop: "64px" }}>
+      <div className="layout-container">
         <Sidebar />
         <main
+          className="main-content"
           style={{
-            marginLeft: "240px",
-            width: "100%",
             padding: "2rem 0 0 2rem",
             background: "#F5F5F7",
             minHeight: "100vh"
