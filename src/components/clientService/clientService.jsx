@@ -8,7 +8,7 @@ const ClientService = () => {
     {
       title: "Línea de Atención",
       number: "1234",
-      description: "Atención telefónica especializada disponible las 24 horas del día",
+      description: "Línea de Atención Atención telefónica especializada disponible las 24 horas del día",
       icon: <FiPhone size={28} />,
       action: "Llamar Ahora",
       color: "phone",
@@ -94,7 +94,16 @@ const ClientService = () => {
                 </div>
                 <h3>{option.title}</h3>
                 <div className="service-contact">{option.number}</div>
-                <p>{option.description}</p>
+                {option.description.includes('\n') ? (
+                  option.description.split('\n').map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <p>{option.description}</p>
+                )}
               </div>
               <div className="service-card-footer">
                 <button className="service-action-btn">
