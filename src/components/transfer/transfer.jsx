@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/styles/transfer.css";
 import serviceHeaderImage from "../../assets/HeaderTR.png";
 import useRelizeTransfer from "../../shared/hooks/transfer/useRelizeTransfer";
 import useDepositTransaction from "../../shared/hooks/transfer/useDepositTransaction";
 import { useGetAccounts } from "../../shared/hooks/accounts/useGetAccounts";
 import useCurrentUser from "../../shared/hooks/auth/useNameUser";
+import { useLocation } from "react-router-dom";
 import useUserRole from "../../memo/useUserRole";
 import { TransferForm, DepositForm, HistoryTab } from "../forms/transaction";
 
@@ -12,6 +13,7 @@ const Transfer = () => {
   const user = useCurrentUser();
   const uid = user?.id || null;
   const { accounts } = useGetAccounts(uid);
+  const location = useLocation();
   const { isAdmin } = useUserRole();
 
   const [activeTab, setActiveTab] = useState("transfer");
@@ -25,13 +27,19 @@ const Transfer = () => {
     note: "",
   });
 
-const [depositData, setDepositData] = useState({
+  const [depositData, setDepositData] = useState({
     receiver: "",
     sender: "",
     amount: "",
     type: "monetary",
   });
 
+  const [serviceForm, setServiceForm] = useState({
+    receiver: "",
+    amount: "",
+    note: "",
+  });
+  
   const { relizeTransfer, loading, error, result } = useRelizeTransfer();
   const { executeDeposit, loading: depositLoading, error: depositError, result: depositResult } = useDepositTransaction();
 
@@ -100,6 +108,14 @@ const [depositData, setDepositData] = useState({
     }));
   };
 
+  const handleServiceInputChange = (e) => {
+    const { name, value } = e.target;
+    setServiceForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleTransfer = async (e) => {
     e.preventDefault();
     const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
@@ -151,6 +167,53 @@ const [depositData, setDepositData] = useState({
       type: depositData.type,
     });
   };
+
+  const handleServiceTransfer = async (e) => {
+    e.preventDefault();
+    const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
+    let senderId = "";
+    if (userCookie) {
+      try {
+        const userData = JSON.parse(decodeURIComponent(userCookie[2]));
+        senderId = userData.id || "";
+      } catch {
+        senderId = "";
+      }
+    }
+    if (!senderId) {
+      alert("La sesion ha expirado. Por favor, vuelve a iniciar sesión.");
+      return;
+    }
+
+    await relizeTransfer({
+      receiver: serviceForm.receiver,
+      sender: senderId,
+      amount: Number(serviceForm.amount),
+      typeSend: "monetary",
+      typeRecive: "monetary",
+      note: serviceForm.note,
+    });
+  };
+
+  // Pre-fill form if coming from a service payment
+  useEffect(() => {
+    if (location.state && location.state.serviceTransfer) {
+      setActiveTab("history");
+      setServiceForm({
+        receiver: location.state.receiver || "",
+        amount: location.state.amount || "",
+        note: location.state.note || "",
+      });
+    } else if (location.state) {
+      setActiveTab("transfer");
+      setFormData((prev) => ({
+        ...prev,
+        receiver: location.state.receiver || "",
+        amount: location.state.amount || "",
+        note: location.state.note || "",
+      }));
+    }
+  }, [location.state]);
 
   return (
     <div className="transfer-container">
@@ -204,6 +267,60 @@ const [depositData, setDepositData] = useState({
         />
       )}
       {activeTab === "history" && (
+        <form className="transfer-form" onSubmit={handleServiceTransfer}>
+          <div className="form-group">
+            <label htmlFor="service-receiver">No. Cuenta de servicio</label>
+            <input
+              type="text"
+              id="service-receiver"
+              name="receiver"
+              placeholder="Número de cuenta del servicio"
+              value={serviceForm.receiver}
+              onChange={handleServiceInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="service-amount">Monto</label>
+            <div className="amount-input">
+              <span>Q</span>
+              <input
+                type="number"
+                id="service-amount"
+                name="amount"
+                placeholder="0.00"
+                value={serviceForm.amount}
+                onChange={handleServiceInputChange}
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="service-note">Nota (opcional)</label>
+            <textarea
+              id="service-note"
+              name="note"
+              placeholder="Agrega una descripción"
+              value={serviceForm.note}
+              onChange={handleServiceInputChange}
+              rows="3"
+            />
+          </div>
+          <button
+            className="transfer-btn"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Procesando..." : "Pagar Servicio"}
+          </button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {result && (
+            <p style={{ color: "green" }}>¡Pago realizado exitosamente!</p>
+          )}
+        </form>
+
         <HistoryTab />
       )}
     </div>
