@@ -39,9 +39,14 @@ const Transfer = () => {
     amount: "",
     note: "",
   });
-  
+
   const { relizeTransfer, loading, error, result } = useRelizeTransfer();
-  const { executeDeposit, loading: depositLoading, error: depositError, result: depositResult } = useDepositTransaction();
+  const {
+    executeDeposit,
+    loading: depositLoading,
+    error: depositError,
+    result: depositResult,
+  } = useDepositTransaction();
 
   const getAccountOptions = () => {
     if (!accounts) return [];
@@ -54,7 +59,9 @@ const Transfer = () => {
         accountNumber: accounts.noAccount,
         label: `Cuenta Corriente - ${accounts.noAccount}`,
         balance: accounts.noAccountBalance || 0,
-        displayText: `Cuenta Corriente - ${accounts.noAccount} (Q${accounts.noAccountBalance || '0.00'})`
+        displayText: `Cuenta Corriente - ${accounts.noAccount} (Q${
+          accounts.noAccountBalance || "0.00"
+        })`,
       });
     }
 
@@ -64,7 +71,9 @@ const Transfer = () => {
         accountNumber: accounts.savingAccount,
         label: `Cuenta de Ahorros - ${accounts.savingAccount}`,
         balance: accounts.savingAccountBalance || 0,
-        displayText: `Cuenta de Ahorros - ${accounts.savingAccount} (Q${accounts.savingAccountBalance || '0.00'})`
+        displayText: `Cuenta de Ahorros - ${accounts.savingAccount} (Q${
+          accounts.savingAccountBalance || "0.00"
+        })`,
       });
     }
 
@@ -74,7 +83,9 @@ const Transfer = () => {
         accountNumber: accounts.foreingCurrency,
         label: `Cuenta en Dólares - ${accounts.foreingCurrency}`,
         balance: accounts.foreingCurrencyBalance || 0,
-        displayText: `Cuenta en Dólares - ${accounts.foreingCurrency} (USD$${accounts.foreingCurrencyBalance || '0.00'})`
+        displayText: `Cuenta en Dólares - ${accounts.foreingCurrency} (USD$${
+          accounts.foreingCurrencyBalance || "0.00"
+        })`,
       });
     }
 
@@ -267,61 +278,58 @@ const Transfer = () => {
         />
       )}
       {activeTab === "history" && (
-        <form className="transfer-form" onSubmit={handleServiceTransfer}>
-          <div className="form-group">
-            <label htmlFor="service-receiver">No. Cuenta de servicio</label>
-            <input
-              type="text"
-              id="service-receiver"
-              name="receiver"
-              placeholder="Número de cuenta del servicio"
-              value={serviceForm.receiver}
-              onChange={handleServiceInputChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="service-amount">Monto</label>
-            <div className="amount-input">
-              <span>Q</span>
+        <>
+          <form className="transfer-form" onSubmit={handleServiceTransfer}>
+            <div className="form-group">
+              <label htmlFor="service-receiver">No. Cuenta de servicio</label>
               <input
-                type="number"
-                id="service-amount"
-                name="amount"
-                placeholder="0.00"
-                value={serviceForm.amount}
+                type="text"
+                id="service-receiver"
+                name="receiver"
+                placeholder="Número de cuenta del servicio"
+                value={serviceForm.receiver}
                 onChange={handleServiceInputChange}
-                min="0"
-                step="0.01"
                 required
               />
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="service-note">Nota (opcional)</label>
-            <textarea
-              id="service-note"
-              name="note"
-              placeholder="Agrega una descripción"
-              value={serviceForm.note}
-              onChange={handleServiceInputChange}
-              rows="3"
-            />
-          </div>
-          <button
-            className="transfer-btn"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Procesando..." : "Pagar Servicio"}
-          </button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {result && (
-            <p style={{ color: "green" }}>¡Pago realizado exitosamente!</p>
-          )}
-        </form>
-
-        <HistoryTab />
+            <div className="form-group">
+              <label htmlFor="service-amount">Monto</label>
+              <div className="amount-input">
+                <span>Q</span>
+                <input
+                  type="number"
+                  id="service-amount"
+                  name="amount"
+                  placeholder="0.00"
+                  value={serviceForm.amount}
+                  onChange={handleServiceInputChange}
+                  min="0"
+                  step="0.01"
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="service-note">Nota (opcional)</label>
+              <textarea
+                id="service-note"
+                name="note"
+                placeholder="Agrega una descripción"
+                value={serviceForm.note}
+                onChange={handleServiceInputChange}
+                rows="3"
+              />
+            </div>
+            <button className="transfer-btn" type="submit" disabled={loading}>
+              {loading ? "Procesando..." : "Pagar Servicio"}
+            </button>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {result && (
+              <p style={{ color: "green" }}>¡Pago realizado exitosamente!</p>
+            )}
+          </form>
+          <HistoryTab />
+        </>
       )}
     </div>
   );
