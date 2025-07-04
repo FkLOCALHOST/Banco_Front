@@ -49,6 +49,7 @@
     color: var(--banco-2);
     font-size: 2.5rem;
     letter-spacing: 2px;
+    overflow: hidden;
 }
 
 .register-header p {
