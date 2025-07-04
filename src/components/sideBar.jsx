@@ -4,7 +4,8 @@ import {
   FiCreditCard, 
   FiSend, 
   FiClock, 
-  FiShield
+  FiShield,
+  FiHome
 } from 'react-icons/fi';
 import '../assets/styles/sidebar.css'; 
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +23,13 @@ const Sidebar = () => {
       </div>
       <nav>
         <ul className="sidebar-links">
+          <li>
+            <a onClick={() => navigate('/Home')} style={{cursor: 'pointer'}}>
+              <FiHome className="sidebar-link-icon" />
+              Inicio
+            </a>
+          </li>
+          <li></li>
           <li>
             <a onClick={() => navigate('/cuenta')} style={{cursor: 'pointer'}}>
               <FiUser className="sidebar-link-icon" />
