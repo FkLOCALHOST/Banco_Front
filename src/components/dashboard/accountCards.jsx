@@ -54,7 +54,10 @@ const AccountCards = () => {
           <h3 className="card-title">Servicio al<br />cliente</h3>
         </div>
 
-        <div className="account-card favorites">
+        <div className="account-card favorites"
+          onClick={() => navigate('/my-favorite-accounts')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="card-icon">
             <FiHeart />
           </div>
