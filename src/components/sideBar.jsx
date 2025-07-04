@@ -4,13 +4,15 @@ import {
   FiCreditCard, 
   FiSend, 
   FiClock, 
-  FiDollarSign 
+  FiShield
 } from 'react-icons/fi';
 import '../assets/styles/sidebar.css'; 
 import { useNavigate } from 'react-router-dom';
+import useUserRole from '../memo/useUserRole';
 
 const Sidebar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { isAdmin } = useUserRole();
   return (
     <aside className="sidebar">
       <div className="sidebar-user">
@@ -20,6 +22,12 @@ const Sidebar = () => {
       </div>
       <nav>
         <ul className="sidebar-links">
+          <li>
+            <a onClick={() => navigate('/cuenta')} style={{cursor: 'pointer'}}>
+              <FiUser className="sidebar-link-icon" />
+              Mi Cuenta
+            </a>
+          </li>
           <li>
             <a onClick={() => navigate('/services')} style={{cursor: 'pointer'}}>
               <FiUser className="sidebar-link-icon" />
@@ -44,6 +52,14 @@ const Sidebar = () => {
               Historial
             </a>
           </li>
+          {isAdmin && (
+            <li>
+              <a onClick={() => navigate('/admin-options')} style={{cursor: 'pointer'}}>
+                <FiShield className="sidebar-link-icon" />
+                Opciones de administrador
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </aside>

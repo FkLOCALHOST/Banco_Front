@@ -5,6 +5,7 @@ export const useHistoryOfTransactions = (uid) => {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [refetchTrigger, setRefetchTrigger] = useState(0);
 
     useEffect(() => {
         if (!uid) {
@@ -23,7 +24,6 @@ export const useHistoryOfTransactions = (uid) => {
                 
                 const userData = result.data?.users?.find(u => u.uid === uid);
                 if (userData) {
-                    // Procesar transacciones enviadas
                     const sentTransactions = (userData.historyOfSend || []).map(transaction => ({
                         id: transaction._id,
                         type: "send",
@@ -36,7 +36,6 @@ export const useHistoryOfTransactions = (uid) => {
                         description: transaction.description || `Transferencia ${transaction.typeSender || 'monetaria'}`
                     }));
 
-                    // Procesar transacciones recibidas
                     const receivedTransactions = (userData.historyOfRecive || []).map(transaction => ({
                         id: transaction._id,
                         type: "receive",
@@ -49,7 +48,6 @@ export const useHistoryOfTransactions = (uid) => {
                         description: transaction.description || `${transaction.typeSender === 'Deposit' ? 'Depósito bancario' : 'Transferencia recibida'}`
                     }));
 
-                    // Combinar y ordenar por fecha (más reciente primero)
                     const allTransactions = [...sentTransactions, ...receivedTransactions];
                     allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
                     
@@ -67,7 +65,11 @@ export const useHistoryOfTransactions = (uid) => {
         };
 
         fetchData();
-    }, [uid]);
+    }, [uid, refetchTrigger]);
 
-    return { history, loading, error };
+    const refetch = () => {
+        setRefetchTrigger(prev => prev + 1);
+    };
+
+    return { history, loading, error, refetch };
 };
