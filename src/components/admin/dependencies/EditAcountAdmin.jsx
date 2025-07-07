@@ -247,20 +247,11 @@ const EditAcountAdmin = () => {
             </div>
           </div>
         </div>
-
         <div className="form-actions">
           <button type="submit" className="save-btn" disabled={saving}>
             {saving ? "Guardando..." : "Guardar Cambios"}
           </button>
-          <button
-            type="button"
-            className="secondary-btn"
-            onClick={() => alert("Funcionalidad de cambiar contraseña (simulado)")}
-          >
-            Cambiar Contraseña
-          </button>
         </div>
-
         {saveError && (
           <div className="error-message">
             {saveError}
