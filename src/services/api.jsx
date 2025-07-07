@@ -97,9 +97,9 @@ export const deleteUser = async (uid) => {
   }
 };
 
-export const createWallet = async () => {
+export const createWallet = async (data) => {
   try {
-    return await apiWallet.get("/wallet/create");
+    return await apiWallet.post("/wallet/create",data);
   } catch (error) {
     return { error: true, message: error.message };
   }
