@@ -4,10 +4,12 @@ import { useGetAllUsers } from '../../shared/hooks/user/useGetAllUsers';
 import "../../assets/styles/historyTable.css";
 import Navbar from '../navbar';
 import Sidebar from '../sideBar';
+import { useNavigate } from 'react-router-dom';
 
 const UsersTable = () => {
     const { users, loading, error } = useGetAllUsers();
     const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate();
     const itemsPerPage = 10;
 
     const sortedUsers = useMemo(() => {
@@ -28,8 +30,7 @@ const UsersTable = () => {
     };
 
     const handleEdit = (userId) => {
-        // Aquí podrías redirigir, abrir modal o consola
-        console.log("Editar usuario:", userId);
+        navigate(`/admin/edit-user/${userId}`);
     };
 
     if (loading) return <div className="history-container"><p>Cargando usuarios...</p></div>;

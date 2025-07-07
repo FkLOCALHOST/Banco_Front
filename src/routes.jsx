@@ -197,7 +197,7 @@ export const routes = [
     ),
   },
   {
-    path: "/admin/edit/:id",
+    path: "/admin/edit-user/:id",
     element: (
       <CookieValidator>
         <EditAcountAdmin/>

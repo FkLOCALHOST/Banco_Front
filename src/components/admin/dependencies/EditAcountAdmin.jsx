@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FiUser, FiUserCheck, FiMapPin, FiBriefcase, FiDollarSign, FiPhone, FiCreditCard, FiMail } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 import "../../../assets/styles/editAccount.css";
 import useGetUser from "../../../shared/hooks/user/useGetUser";
 import useEditUser from "../../../shared/hooks/user/useEditUser";
 import AlertCustom from "../../alertCustom";
 
-function getUidFromCookie() {
-  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
-  if (!userCookie) return null;
-  try {
-    const user = JSON.parse(decodeURIComponent(userCookie[2]));
-    return user.uid || user.id || user.userDetails?.uid || null;
-  } catch {
-    return null;
-  }
-}
-
 const EditAcountAdmin = () => {
-  const uid = getUidFromCookie();
-  const { user, loading, error } = useGetUser(uid);
+  const { id } = useParams();
+  const { user, loading, error } = useGetUser(id);
   const { editUser, loading: saving, error: saveError, success } = useEditUser();
 
   const [form, setForm] = useState({
@@ -63,11 +53,12 @@ const EditAcountAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await editUser(uid, form);
+    await editUser(id, form);
   };
 
   if (loading) return <div className="edit-account-container">Cargando información...</div>;
   if (error) return <div className="edit-account-container">Error al cargar la información.</div>;
+  if (!id) return <div className="edit-account-container">ID de usuario no encontrado en la URL.</div>;
 
   return (
     <div className="edit-account-container">
