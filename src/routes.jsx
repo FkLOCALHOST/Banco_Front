@@ -24,6 +24,7 @@ import GenerateAccount from "./components/admin/GenerateAccount.jsx";
 import UsersTableAccount from "./components/admin/UsersTableAccount.jsx";
 import UsersTable from "./components/admin/UsersTable.jsx";
 import EditAcountAdmin from "./components/admin/dependencies/EditAcountAdmin.jsx";
+import UsersTableTransaction from "./components/admin/UsersTableTransactions.jsx";
 
 export const routes = [
   {
@@ -197,10 +198,18 @@ export const routes = [
     ),
   },
   {
-    path: "/admin/edit/:id",
+    path: "/admin/edit-user/:id",
     element: (
       <CookieValidator>
         <EditAcountAdmin/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/user-transactions/",
+    element: (
+      <CookieValidator>
+        <UsersTableTransaction/>
       </CookieValidator>
     ),
   },
