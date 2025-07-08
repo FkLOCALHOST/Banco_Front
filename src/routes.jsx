@@ -20,6 +20,11 @@ import { MoneyAccounts } from "./components/moneyAccounts/MoneyAccounts.jsx";
 import { FavoriteAccountsPage } from "./components/moneyAccounts/FavoriteAccountsPage.jsx";
 import Register from "./components/auth/register.jsx";
 import AdminOptionCards from "./components/admin/AdminOptionCards.jsx";
+import GenerateAccount from "./components/admin/GenerateAccount.jsx";
+import UsersTableAccount from "./components/admin/UsersTableAccount.jsx";
+import UsersTable from "./components/admin/UsersTable.jsx";
+import EditAcountAdmin from "./components/admin/dependencies/EditAcountAdmin.jsx";
+import UsersTableTransaction from "./components/admin/UsersTableTransactions.jsx";
 
 export const routes = [
   {
@@ -157,7 +162,7 @@ export const routes = [
   {
     path: "/register",
     element: (
-        <Register/>
+      <Register />
     ),
   },
   {
@@ -165,6 +170,46 @@ export const routes = [
     element: (
       <CookieValidator>
         <AdminOptionCards />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/generate-wallet",
+    element: (
+      <CookieValidator>
+        <GenerateAccount />
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/get-users",
+    element: (
+      <CookieValidator>
+        <UsersTableAccount/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/get-users-info",
+    element: (
+      <CookieValidator>
+        <UsersTable/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/edit-user/:id",
+    element: (
+      <CookieValidator>
+        <EditAcountAdmin/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/user-transactions/",
+    element: (
+      <CookieValidator>
+        <UsersTableTransaction/>
       </CookieValidator>
     ),
   },
