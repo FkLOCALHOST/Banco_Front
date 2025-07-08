@@ -12,7 +12,9 @@ const useUpdatePassword = () => {
     setSuccess(false);
     try {
       const res = await updatePassword(uid, { newPassword });
-      if (res.error) throw new Error(res.message);
+      if (res.error) {
+        throw new Error(res.message);
+      }
       setSuccess(true);
     } catch (err) {
       setError(err.message);
