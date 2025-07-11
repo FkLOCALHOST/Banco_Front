@@ -25,6 +25,8 @@ import UsersTableAccount from "./components/admin/UsersTableAccount.jsx";
 import UsersTable from "./components/admin/UsersTable.jsx";
 import EditAcountAdmin from "./components/admin/dependencies/EditAcountAdmin.jsx";
 import UsersTableTransaction from "./components/admin/UsersTableTransactions.jsx";
+import TableOfTransactions from "./components/admin/dependencies/tableOfTransactions.jsx";
+import EditTransaction from "./components/admin/dependencies/EditTransaction.jsx";
 
 export const routes = [
   {
@@ -210,6 +212,22 @@ export const routes = [
     element: (
       <CookieValidator>
         <UsersTableTransaction/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/deposits/",
+    element: (
+      <CookieValidator>
+        <TableOfTransactions/>
+      </CookieValidator>
+    ),
+  },
+  {
+    path: "/admin/deposits/edit/:uid",
+    element: (
+      <CookieValidator>
+        <EditTransaction/>
       </CookieValidator>
     ),
   },
