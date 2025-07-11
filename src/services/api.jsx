@@ -75,9 +75,22 @@ export const getUsers = async () => {
 
 export const updatePassword = async (uid, data) => {
   try {
-    return await apiWallet.patch(`/user/updatePassword/${uid}`, data);
+    const res = await apiWallet.patch(`/user/updatePassword/${uid}`, data);
+    return res.data; 
   } catch (error) {
-    return { error: true, message: error.message };
+    if (error.response?.data?.errors) {
+      return {
+        error: true,
+        message: error.response.data.errors.join(", ")
+      };
+    }
+    return {
+      error: true,
+      message:
+        error.response?.data?.message ||
+        error.message ||
+        "Error desconocido"
+    };
   }
 };
 

@@ -4,6 +4,8 @@ import "../../assets/styles/editAccount.css";
 import useGetUser from "../../shared/hooks/user/useGetUser";
 import useEditUser from "../../shared/hooks/user/useEditUser";
 import AlertCustom from "../alertCustom";
+import useUpdatePassword from "../../shared/hooks/user/useUpdatePassword";
+import ChangePasswordModal from "./changePasswordModal";
 
 function getUidFromCookie() {
   const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
@@ -20,7 +22,15 @@ const EditAcount = () => {
   const uid = getUidFromCookie();
   const { user, loading, error } = useGetUser(uid);
   const { editUser, loading: saving, error: saveError, success } = useEditUser();
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
+  const {
+    changePassword,
+    loading: changingPassword,
+    error: changePasswordError,
+    success: changePasswordSuccess
+  } = useUpdatePassword();
+  
   const [form, setForm] = useState({
     name: "",
     userName: "",
@@ -264,7 +274,7 @@ const EditAcount = () => {
           <button
             type="button"
             className="secondary-btn"
-            onClick={() => alert("Funcionalidad de cambiar contraseña (simulado)")}
+            onClick={() => setShowChangePassword(true)}
           >
             Cambiar Contraseña
           </button>
@@ -276,6 +286,15 @@ const EditAcount = () => {
           </div>
         )}
       </form>
+
+      <ChangePasswordModal
+        isOpen={showChangePassword}
+        onClose={() => setShowChangePassword(false)}
+        onSubmit={(newPassword) => changePassword(uid, newPassword)}
+        loading={changingPassword}
+        error={changePasswordError}
+        success={changePasswordSuccess}
+      />
     </div>
   );
 };
