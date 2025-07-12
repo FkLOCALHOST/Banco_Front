@@ -27,6 +27,7 @@ import EditAcountAdmin from "./components/admin/dependencies/EditAcountAdmin.jsx
 import UsersTableTransaction from "./components/admin/UsersTableTransactions.jsx";
 import TableOfTransactions from "./components/admin/dependencies/tableOfTransactions.jsx";
 import EditTransaction from "./components/admin/dependencies/EditTransaction.jsx";
+import ServiceFormPage from "./pages/services/serviceForm.jsx";
 
 export const routes = [
   {
@@ -231,4 +232,12 @@ export const routes = [
       </CookieValidator>
     ),
   },
+  {
+    path: "/service-form",
+    element: (
+      <CookieValidator>
+        <ServiceFormPage />
+      </CookieValidator>
+    )
+  }
 ];
