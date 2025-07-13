@@ -194,9 +194,13 @@ export const getServices = async () => {
 
 export const addService = async (data) => {
   try {
-    return await apiWallet.post("/service/agregar", data);
+    return await apiWallet.post("/service/agregar", data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   } catch (error) {
-    return { error: true, message: error.message };
+    return { error: true, message: error.response?.data?.message || error.message };
   }
 };
 

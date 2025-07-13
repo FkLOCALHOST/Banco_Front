@@ -69,7 +69,7 @@ const AdminOptionCards = () => {
             </div>
             <div 
               className="account-card favorites"
-              onClick={() => navigate('/admin/products')}
+              onClick={() => navigate('/service-form')}
               style={{ cursor: 'pointer' }}
             >
               <div className="card-icon">
