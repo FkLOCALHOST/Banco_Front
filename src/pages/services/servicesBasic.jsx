@@ -52,25 +52,10 @@ const ServicesBasic = () => {
                 const favKey = service._id || service.uid;
                 return (
                   <div className="service-card" key={favKey}>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <div className="service-card-header">
                       <div className="service-card-name">{service.name}</div>
                       <button
-                        style={{
-                          background: "none",
-                          border: "none",
-                          cursor: "pointer",
-                          color: favorites[favKey] ? "#e53935" : "#fff",
-                          fontSize: "1.5rem",
-                          marginLeft: "0.5rem",
-                          outline: "none",
-                        }}
+                        className={`favorite-btn ${favorites[favKey] ? 'active' : 'inactive'}`}
                         title={
                           favorites[favKey]
                             ? "Quitar de favoritos"
@@ -105,18 +90,6 @@ const ServicesBasic = () => {
                     </div>
                     <button
                       className="pay-btn"
-                      style={{
-                        marginTop: "0.7rem",
-                        background: "#1976d2",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "6px",
-                        padding: "0.5rem 1.2rem",
-                        fontWeight: 600,
-                        fontSize: "1rem",
-                        cursor: "pointer",
-                        transition: "background 0.2s",
-                      }}
                       onClick={() =>
                         navigate("/transfer", {
                           state: {
@@ -131,21 +104,9 @@ const ServicesBasic = () => {
                       Pagar
                     </button>
                     {!loadingRole && isAdmin && (
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "1rem",
-                          marginTop: "0.7rem",
-                        }}
-                      >
+                      <div className="service-card-actions">
                         <button
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            color: "#4BB543",
-                            fontSize: "1.3rem",
-                          }}
+                          className="action-btn edit"
                           title="Editar"
                           onClick={() =>
                             alert("Funcionalidad de editar servicio (simulado)")
@@ -154,13 +115,7 @@ const ServicesBasic = () => {
                           <FiEdit3 />
                         </button>
                         <button
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            color: "#FF5252",
-                            fontSize: "1.3rem",
-                          }}
+                          className="action-btn delete"
                           title="Eliminar"
                           onClick={() =>
                             alert("Funcionalidad de eliminar servicio (simulado)")

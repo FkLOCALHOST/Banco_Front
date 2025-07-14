@@ -14,108 +14,224 @@
 
 .services-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
   gap: 1.5rem;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .service-card {
   background: linear-gradient(135deg, #25263c 0%, #2a2d4a 100%);
-  border-radius: 14px;
-  padding: 1.2rem 1rem 1.2rem 1rem;
+  border-radius: 16px;
+  padding: 24px;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 340px;
+  min-height: 380px;
+  max-width: 320px;
+  width: 100%;
   height: 100%;
-  justify-content: flex-start;
-  transition: transform 0.2s, box-shadow 0.2s;
+  justify-content: space-between;
+  transition: all 0.3s ease;
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ed3a57 0%, #d42a4f 100%);
 }
 
 .service-card:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(237, 58, 87, 0.2);
 }
 
 .service-card-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: 0.7rem;
-  gap: 1rem;
+  margin-bottom: 16px;
+  gap: 12px;
 }
 
 .service-card-name {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
   text-align: left;
-  width: auto;
   word-break: break-word;
-  flex: 1 1 auto;
+  flex: 1;
+  line-height: 1.3;
 }
 
 .service-card-img {
   width: 100%;
-  max-width: 180px;
-  height: 120px;
+  max-width: 200px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 8px;
-  margin: 0.7rem 0 0.7rem 0;
-  background: #e9e9e9;
-  box-shadow: 0 2px 8px #0002;
+  border-radius: 12px;
+  margin: 16px 0;
+  background: #f8f9fa;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   display: block;
   align-self: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.service-card-img:hover {
+  transform: scale(1.02);
 }
 
 .service-card-img.no-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #888;
+  color: #999;
   font-size: 1.1rem;
-  background: #e0e0e0;
-  border: 2px dashed #bbb;
+  background: #f0f2f5;
+  border: 2px dashed #ddd;
 }
 
 .service-card-desc {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #e0e0e0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 16px;
   text-align: left;
-  min-height: 38px;
+  min-height: 40px;
   width: 100%;
-  flex: 1 1 auto;
+  flex: 1;
   word-break: break-word;
-  display: flex;
-  align-items: center;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .service-card-price {
-  font-size: 1.08rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: #ffb347;
-  margin-top: 0.2rem;
-  margin-bottom: 0.7rem;
+  margin-bottom: 20px;
   text-align: left;
   width: 100%;
+  padding: 8px 12px;
+  background: rgba(255, 179, 71, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #ffb347;
 }
 
 .pay-btn {
   width: 100%;
-  max-width: 220px;
-  margin: 0 auto;
-  margin-bottom: 0.5rem;
-  display: block;
+  background: #ed3a57;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(237, 58, 87, 0.2);
+}
+
+.pay-btn:hover {
+  background: #d42a4f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(237, 58, 87, 0.3);
+}
+
+.pay-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(237, 58, 87, 0.2);
+}
+
+/* Admin actions styling */
+.service-card-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.edit {
+  color: #4BB543;
+}
+
+.action-btn.edit:hover {
+  background: rgba(75, 181, 67, 0.1);
+  transform: scale(1.1);
+}
+
+.action-btn.delete {
+  color: #FF5252;
+}
+
+.action-btn.delete:hover {
+  background: rgba(255, 82, 82, 0.1);
+  transform: scale(1.1);
+}
+
+/* Favorite button styling */
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  background: rgba(237, 58, 87, 0.2);
+  transform: scale(1.1);
+}
+
+.favorite-btn.active {
+  color: #e53935;
+}
+
+.favorite-btn.inactive {
+  color: #fff;
 }
 
 @media (max-width: 1200px) {
   .services-cards-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+    justify-content: center;
   }
 }
 
@@ -125,16 +241,18 @@
     padding: 1rem 0.5rem;
   }
   .services-cards-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
     gap: 1rem;
+    justify-content: center;
   }
   .service-card {
-    min-height: 260px;
-    padding: 1.2rem 0.7rem 1rem 0.7rem;
+    min-height: 360px;
+    padding: 20px;
+    max-width: 280px;
   }
   .service-card-img {
-    max-width: 120px;
-    height: 80px;
+    max-width: 180px;
+    height: 120px;
   }
 }
 
@@ -145,18 +263,21 @@
   .services-cards-grid {
     grid-template-columns: 1fr;
     gap: 0.7rem;
+    max-width: 320px;
+    margin: 0 auto;
   }
   .service-card {
-    min-height: 200px;
-    padding: 1rem 0.5rem 0.8rem 0.5rem;
+    min-height: 340px;
+    padding: 18px;
+    max-width: 100%;
   }
   .service-card-img {
     max-width: 100%;
-    height: 60px;
+    height: 100px;
   }
   .pay-btn {
     width: 100%;
     font-size: 0.98rem;
-    padding: 0.5rem 0.5rem;
+    padding: 12px;
   }
 }
