@@ -1,18 +1,21 @@
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-
-const getCookie = (name) => {
-  const match = document.cookie.match(
-    new RegExp("(^| )" + name + "=([^;]+)")
-  );
-  return match ? decodeURIComponent(match[2]) : null;
-};
+import { validateToken } from "../../services/api";
 
 const CookieValidator = ({ children }) => {
-  const token = getCookie("auth_token");
+  const [valid, setValid] = useState(null);
 
-  if (!token) {
-    return <Navigate to="/" replace />;
-  }
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isValid = await validateToken();
+      setValid(isValid);
+    };
+    checkAuth();
+  }, []);
+
+  if (valid === null) return null;
+
+  if (!valid) return <Navigate to="/" replace />;
 
   return children;
 };

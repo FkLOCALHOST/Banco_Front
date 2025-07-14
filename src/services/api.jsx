@@ -40,6 +40,14 @@ apiWallet.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+export const validateToken = async () => {
+  try {
+    await apiWallet.get("/user/validateToken");
+  } catch (error) {
+    return false; 
+  }
+};
+
 export const register = async (data) => {
   try {
     return await apiWallet.post("/auth/register", data);
