@@ -3,6 +3,7 @@ import { FiEye, FiEyeOff, FiMail, FiLock } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/login.css";
 import useLogin from "../../shared/hooks/auth/useLogin";
+import { validateToken } from "../../services/api";
 
 const Login = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +16,13 @@ const Login = ({ onSuccess }) => {
     e.preventDefault();
     const result = await login({ email, password });
     if (result && !result.error) {
-      navigate("/home");
+      const isValid = await validateToken();
+      if (isValid) {
+        navigate("/dashboard");
+      } else {
+        alert("Invalid session. Please log in again.");
+        navigate("/");
+      }
       if (typeof onSuccess === "function") {
         onSuccess();
       }
