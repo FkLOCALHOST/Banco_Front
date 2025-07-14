@@ -42,11 +42,15 @@ apiWallet.interceptors.request.use(
 
 export const validateToken = async () => {
   try {
-    await apiWallet.get("/user/validateToken");
+    const res = await apiWallet.get("/user/validateToken");
+    console.log("Token validado:", res.data);
+    return true;
   } catch (error) {
-    return false; 
+    console.warn("Token inválido:", error?.response?.data || error.message);
+    return false;
   }
 };
+
 
 export const register = async (data) => {
   try {
@@ -84,7 +88,7 @@ export const getUsers = async () => {
 export const updatePassword = async (uid, data) => {
   try {
     const res = await apiWallet.patch(`/user/updatePassword/${uid}`, data);
-    return res.data; 
+    return res.data;
   } catch (error) {
     if (error.response?.data?.errors) {
       return {
@@ -120,7 +124,7 @@ export const deleteUser = async (uid) => {
 
 export const createWallet = async (data) => {
   try {
-    return await apiWallet.post("/wallet/create",data);
+    return await apiWallet.post("/wallet/create", data);
   } catch (error) {
     return { error: true, message: error.message };
   }
@@ -320,7 +324,7 @@ export const getWalletMovements = async (userId) => {
 
 export const addFavoriteAccount = async (data) => {
   try {
-    return await apiWallet.post(`/user/addFavorite`,data);
+    return await apiWallet.post(`/user/addFavorite`, data);
   } catch (error) {
     return { error: true, message: error.message };
   }
@@ -350,9 +354,9 @@ export const getAccounts = async (uid) => {
   }
 };
 
-export const addFavoriteAccountWallet = async (uid,data) => {
+export const addFavoriteAccountWallet = async (uid, data) => {
   try {
-    return await apiWallet.patch(`/wallet/addFavoriteAccount/${uid}`,data);
+    return await apiWallet.patch(`/wallet/addFavoriteAccount/${uid}`, data);
   } catch (error) {
     return { error: true, message: error.message };
   }
