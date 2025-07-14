@@ -15,6 +15,7 @@ const Login = ({ onSuccess }) => {
     e.preventDefault();
     const result = await login({ email, password });
     if (result && !result.error) {
+      localStorage.setItem("auth",JSON.stringify("true"))
       navigate("/home");
       if (typeof onSuccess === "function") {
         onSuccess();

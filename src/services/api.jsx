@@ -50,7 +50,9 @@ export const register = async (data) => {
 
 export const login = async (data) => {
   try {
-    const response = await apiWallet.post("/auth/login", data);
+    const response = await apiWallet.post("/auth/login", data, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     return { error: true, message: error.message };
