@@ -3,42 +3,8 @@ import axios from "axios";
 const apiWallet = axios.create({
   baseURL: "https://banco-api-eta.vercel.app/walletManager/v1",
   timeout: 9000,
-  withCredentials: true, // Permite enviar cookies con cada solicitud
+  withCredentials: true,
 });
-
-apiWallet.interceptors.request.use(
-  (config) => {
-    if (
-      !config.url.includes("/auth/login") &&
-      !config.url.includes("/auth/register")
-    ) {
-      const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
-      if (!userCookie) return Promise.reject(new Error("No autorizado"));
-
-      try {
-        const user = JSON.parse(decodeURIComponent(userCookie[2]));
-        const token = user.token || user.userDetails?.token;
-        if (!token) return Promise.reject(new Error("No autorizado"));
-
-        const parts = token.split(".");
-        if (parts.length !== 3) throw new Error("Token inválido");
-
-        const payload = JSON.parse(atob(parts[1]));
-        const now = Math.floor(Date.now() / 1000);
-
-        if (payload.exp < now) {
-          return Promise.reject(new Error("Token expirado"));
-        }
-
-        config.headers["Authorization"] = `Bearer ${token}`;
-      } catch (error) {
-        return Promise.reject(new Error(`Error al procesar el token: ${error.message} `));
-      }
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 export const validateToken = async () => {
   try {
@@ -50,7 +16,6 @@ export const validateToken = async () => {
     return false;
   }
 };
-
 
 export const register = async (data) => {
   try {
@@ -93,15 +58,13 @@ export const updatePassword = async (uid, data) => {
     if (error.response?.data?.errors) {
       return {
         error: true,
-        message: error.response.data.errors.join(", ")
+        message: error.response.data.errors.join(", "),
       };
     }
     return {
       error: true,
       message:
-        error.response?.data?.message ||
-        error.message ||
-        "Error desconocido"
+        error.response?.data?.message || error.message || "Error desconocido",
     };
   }
 };
@@ -130,7 +93,7 @@ export const createWallet = async (data) => {
   }
 };
 
-// PRODUCTOS
+// Productos
 export const getProducts = async () => {
   try {
     return await apiWallet.get("/product/");
@@ -195,7 +158,7 @@ export const getUserProducts = async (userId) => {
   }
 };
 
-// SERVICIOS
+// Servicios
 export const getServices = async () => {
   try {
     return await apiWallet.get("/service/");
@@ -208,8 +171,8 @@ export const addService = async (data) => {
   try {
     return await apiWallet.post("/service/agregar", data, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
   } catch (error) {
     return { error: true, message: error.response?.data?.message || error.message };
@@ -264,7 +227,7 @@ export const getUserServices = async (userId) => {
   }
 };
 
-// TRANSACCIONES
+// Transacciones
 export const createTransaction = async (data) => {
   try {
     return await apiWallet.post("/transaction/createTransaction", data);
@@ -305,7 +268,7 @@ export const updateTransaction = async (uid, data) => {
   }
 };
 
-// WALLET
+// Wallet
 export const getWalletBalances = async (userId) => {
   try {
     return await apiWallet.get(`/wallet/balances/${userId}`);
@@ -369,4 +332,3 @@ export const getUserTransactions = async () => {
     return { error: true, message: error.message };
   }
 };
-
