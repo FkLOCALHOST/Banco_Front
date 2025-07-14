@@ -44,7 +44,7 @@ export const validateToken = async () => {
   try {
     const res = await apiWallet.get("/user/validateToken");
     console.log("Token validado:", res.data);
-    return true;
+    return res.data.success === true;
   } catch (error) {
     console.warn("Token inválido:", error?.response?.data || error.message);
     return false;
