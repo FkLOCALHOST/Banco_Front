@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiWallet = axios.create({
-  baseURL: "http://localhost:3005/walletManager/v1",
+  baseURL: "https://banco-api-eta.vercel.app/walletManager/v1",
   timeout: 9000,
   withCredentials: true, // Permite enviar cookies con cada solicitud
 });
