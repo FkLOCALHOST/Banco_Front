@@ -6,7 +6,7 @@ const getCookie = (name) => {
 };
 
 const CookieValidator = ({ children }) => {
-  const token = getCookie("User");
+  const token = getCookie("auth_token");
   if (!token) {
     return <Navigate to="/" replace />;
   }
