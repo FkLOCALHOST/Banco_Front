@@ -16,7 +16,6 @@ const useLogin = () => {
         return null;
       }
       setLoading(false);
-      localStorage.setItem("User", JSON.stringify(response.data.userDetails))
       return response.data;
     } catch (err) {
       setError(err.message || "Login failed");

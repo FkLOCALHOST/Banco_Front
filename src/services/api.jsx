@@ -9,7 +9,10 @@ const apiWallet = axios.create({
 export const validateToken = async () => {
   try {
     const res = await apiWallet.get("/user/validateToken");
-    console.log("Token validado:", res.data);
+    console.log("Token validado:", res.data.user);
+    console.log("INTENTO guardar en localStorage:", res.data.user);
+    localStorage.setItem("User", JSON.stringify(res.data.user));
+    console.log("GUARDADO:", localStorage.getItem("User"));
     return res.data.success === true;
   } catch (error) {
     console.warn("Token inválido:", error?.response?.data || error.message);
