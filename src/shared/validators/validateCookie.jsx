@@ -9,6 +9,7 @@ const CookieValidator = ({ children }) => {
     const checkAuth = async () => {
       const isValid = await validateToken();
       setValid(isValid);
+      localStorage.setItem("User",JSON.stringify(isValid?isValid:false))
     };
     checkAuth();
   }, []);
