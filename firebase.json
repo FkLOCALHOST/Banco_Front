@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "deploy-front-bank",
     "public": "dist",
     "ignore": [
       "firebase.json",

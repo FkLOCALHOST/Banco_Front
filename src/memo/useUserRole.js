@@ -5,7 +5,7 @@ import { getUserById } from "../services/api";
 let memoizedRole = null;
 let memoizedPromise = null;
 
-function getUidFromCookie() {
+const getUidFromCookie = () => {
   const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
   if (!userCookie) return null;
   try {
@@ -14,7 +14,18 @@ function getUidFromCookie() {
   } catch {
     return null;
   }
-}
+};
+
+const getUidFromLocalStorage = () => {
+  const user = localStorage.getItem("User");
+  if (!user) return null;
+  try {
+    const parsedUser = JSON.parse(user);
+    return parsedUser.id || null;
+  } catch {
+    return null;
+  }
+};
 
 const useUserRole = () => {
   const [role, setRole] = useState(memoizedRole);
@@ -28,7 +39,7 @@ const useUserRole = () => {
       return;
     }
     if (!memoizedPromise) {
-      const uid = getUidFromCookie();
+      const uid = getUidFromCookie() || getUidFromLocalStorage();
       if (!uid) {
         setError("No user id");
         setLoading(false);

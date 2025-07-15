@@ -7,19 +7,19 @@ import AlertCustom from "../alertCustom";
 import useUpdatePassword from "../../shared/hooks/user/useUpdatePassword";
 import ChangePasswordModal from "./changePasswordModal";
 
-function getUidFromCookie() {
-  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
-  if (!userCookie) return null;
+function getUidFromLocalStorage() {
+  const user = localStorage.getItem("User");
+  if (!user) return null;
   try {
-    const user = JSON.parse(decodeURIComponent(userCookie[2]));
-    return user.uid || user.id || user.userDetails?.uid || null;
+    const parsedUser = JSON.parse(user);
+    return parsedUser.id || null;
   } catch {
     return null;
   }
 }
 
 const EditAcount = () => {
-  const uid = getUidFromCookie();
+  const uid = getUidFromLocalStorage();
   const { user, loading, error } = useGetUser(uid);
   const { editUser, loading: saving, error: saveError, success } = useEditUser();
   const [showChangePassword, setShowChangePassword] = useState(false);

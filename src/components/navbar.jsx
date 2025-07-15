@@ -17,6 +17,8 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const userAux = JSON.parse(localStorage.getItem("User"));
+
   return (
     <nav className="navbar">
       <div
@@ -32,7 +34,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-user">
         <span>
-          Buenos Días, <strong>{user?.userName || "Usuario"}</strong>
+          Buenos Días,  <strong>{user?.userName || userAux?.name || "Usuario"}</strong>
         </span>
         <div className="navbar-actions">
           <button className="navbar-btn help-btn" title="Ayuda">

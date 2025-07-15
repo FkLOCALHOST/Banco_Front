@@ -12,19 +12,19 @@ import {
 import "../../assets/styles/viewAccount.css";
 import useGetUser from "../../shared/hooks/user/useGetUser";
 
-function getUidFromCookie() {
-  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
-  if (!userCookie) return null;
+function getUidFromLocalStorage() {
+  const user = localStorage.getItem("User");
+  if (!user) return null;
   try {
-    const user = JSON.parse(decodeURIComponent(userCookie[2]));
-    return user.uid || user.id || user.userDetails?.uid || null;
+    const parsedUser = JSON.parse(user);
+    return parsedUser.id || null;
   } catch {
     return null;
   }
 }
 
 const ViewAcount = ({ onEdit }) => {
-  const uid = getUidFromCookie();
+  const uid = getUidFromLocalStorage();
   const { user, loading, error } = useGetUser(uid);
 
   if (loading)
@@ -147,10 +147,9 @@ const ViewAcount = ({ onEdit }) => {
               <div className="info-details">
                 <label>Ingresos Mensuales</label>
                 <span>
-                  {user?.monthEarnings 
-                    ? `Q${new Intl.NumberFormat('es-GT').format(user.monthEarnings)}`
-                    : "No disponible"
-                  }
+                  {user?.monthEarnings
+                    ? `Q${new Intl.NumberFormat("es-GT").format(user.monthEarnings)}`
+                    : "No disponible"}
                 </span>
               </div>
             </div>
