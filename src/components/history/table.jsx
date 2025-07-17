@@ -100,7 +100,7 @@ const HistoryTable = () => {
     if (transaction.status === 'FINALLY' || transaction.status === 'REVERTED') {
       return false;
     }
-
+    console.log(transaction.status)
     if (transaction.type !== 'send') {
       return false;
     }
