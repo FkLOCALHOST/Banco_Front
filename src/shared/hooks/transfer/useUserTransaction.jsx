@@ -11,15 +11,22 @@ export const useUserTransaction = () => {
             setLoading(true);
             setError(null);
 
-            const response = await getUserTransactions();
+            try {
+                const response = await getUserTransactions();
+                const data = response?.data;
 
-            if (response.error) {
-                setError(response.message || "Error al obtener usuarios");
+                console.log("Usuarios recibidos:", data?.users);
+
+                if (data?.success && Array.isArray(data.users)) {
+                    setUsers(data.users);
+                } else {
+                    setUsers([]);
+                    setError("No se encontraron usuarios.");
+                }
+            } catch (err) {
+                setError("Error de red o al procesar los datos");
                 setUsers([]);
-            } else if (response.data && Array.isArray(response.data.users)) {
-                setUsers(response.data.users);
-            } else {
-                setUsers([]);
+                console.error(err);
             }
 
             setLoading(false);

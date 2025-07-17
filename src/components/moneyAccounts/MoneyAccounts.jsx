@@ -46,20 +46,26 @@ export const MoneyAccounts = () => {
             [accountType]: !prev[accountType],
         }));
 
-        const response = await addFavorite(accounts._id, { typeAccount });
+        try {
+            const response = await addFavorite(accounts._id, { typeAccount });
 
-        if (!response || !response.accountFav) {
+            if (response && response.accountFav) {
+                const updatedFavs = response.accountFav.favoriteAccount;
+                setFavorites({
+                    normal: isAccountFavorite(accounts.noAccount, updatedFavs),
+                    savings: isAccountFavorite(accounts.savingAccount, updatedFavs),
+                    dollars: isAccountFavorite(accounts.foreingCurrency, updatedFavs),
+                });
+            } else {
+                throw new Error("No se pudo actualizar el estado de favoritos.");
+            }
+        } catch (error) {
+            console.error("Error al actualizar favoritos:", error);
+
             setFavorites((prev) => ({
                 ...prev,
                 [accountType]: !prev[accountType],
             }));
-        } else {
-            const updatedFavs = response.accountFav.favoriteAccount;
-            setFavorites({
-                normal: isAccountFavorite(accounts.noAccount, updatedFavs),
-                savings: isAccountFavorite(accounts.savingAccount, updatedFavs),
-                dollars: isAccountFavorite(accounts.foreingCurrency, updatedFavs),
-            });
         }
     };
 

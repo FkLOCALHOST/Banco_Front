@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/navbar.jsx";
 import Sidebar from "../../components/sideBar.jsx";
 import useGetServices from "../../shared/hooks/services/useGetServices";
-import { FiEdit3, FiTrash2, FiPlus, FiHeart } from "react-icons/fi";
+import { FiEdit3, FiTrash2, FiHeart } from "react-icons/fi";
 import useUserRole from "../../memo/useUserRole.js";
 import "../../assets/styles/services.css";
 import "../../assets/styles/layout.css";
@@ -108,18 +108,12 @@ const ServicesBasic = () => {
                         <button
                           className="action-btn edit"
                           title="Editar"
-                          onClick={() =>
-                            alert("Funcionalidad de editar servicio (simulado)")
-                          }
                         >
                           <FiEdit3 />
                         </button>
                         <button
                           className="action-btn delete"
                           title="Eliminar"
-                          onClick={() =>
-                            alert("Funcionalidad de eliminar servicio (simulado)")
-                          }
                         >
                           <FiTrash2 />
                         </button>

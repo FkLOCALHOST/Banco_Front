@@ -31,7 +31,7 @@ const TransferForm = ({
                             type="text"
                             id="receiver"
                             name="receiver"
-                            placeholder="Correo o número de cuenta"
+                            placeholder="Número de cuenta"
                             value={formData.receiver}
                             onChange={onInputChange}
                             required

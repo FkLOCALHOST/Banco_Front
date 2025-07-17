@@ -4,21 +4,19 @@ import "../../assets/styles/historyTable.css"
 import { useHistoryOfTransactions } from "../../shared/hooks/transfer/useHistoryOfTransactions";
 import useRevertTransaction from "../../shared/hooks/transfer/useRevertTransaction";
 
-function getUidFromCookie() {
-  const userCookie = document.cookie.match(/(^| )User=([^;]+)/);
-  if (!userCookie) {
-    return null;
-  }
+function getUidFromLocalStorage() {
+  const user = localStorage.getItem("User");
+  if (!user) return null;
   try {
-    const user = JSON.parse(decodeURIComponent(userCookie[2]));
-    return user.uid || user.id || user.userDetails?.uid || null;
+    const parsedUser = JSON.parse(user);
+    return parsedUser.id || null;
   } catch {
     return null;
   }
 }
 
 const HistoryTable = () => {
-  const uid = getUidFromCookie();
+  const uid = getUidFromLocalStorage();
   const { history, loading, error, refetch } = useHistoryOfTransactions(uid);
   const [currentPage, setCurrentPage] = useState(1);
   const [revertedTransactions, setRevertedTransactions] = useState(new Set());
@@ -102,7 +100,7 @@ const HistoryTable = () => {
     if (transaction.status === 'FINALLY' || transaction.status === 'REVERTED') {
       return false;
     }
-
+    console.log(transaction.status)
     if (transaction.type !== 'send') {
       return false;
     }

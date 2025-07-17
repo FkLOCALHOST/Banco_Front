@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/navbar.jsx";
 import Sidebar from "../../components/sideBar.jsx";
 import useGetServices from "../../shared/hooks/services/useGetServices";
-import { FiEdit3, FiTrash2, FiPlus, FiHeart } from "react-icons/fi";
+import { FiEdit3, FiTrash2, FiHeart } from "react-icons/fi";
 import useUserRole from "../../memo/useUserRole.js";
 import "../../assets/styles/services.css";
 import "../../assets/styles/layout.css";
@@ -39,30 +39,6 @@ const ServicesInstitutions = () => {
             }}
           >
             <h2 className="services-title">Servicios de Instituciones</h2>
-            {!loadingRole && isAdmin && (
-              <button
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  background: "#25263c",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "0.6rem 1.2rem",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                  transition: "background 0.2s",
-                }}
-                onClick={() =>
-                  alert("Funcionalidad de agregar servicio (simulado)")
-                }
-              >
-                <FiPlus />
-                Agregar servicio
-              </button>
-            )}
           </div>
           {loading ? (
             <div>Cargando servicios de instituciones...</div>
@@ -126,18 +102,12 @@ const ServicesInstitutions = () => {
                         <button
                           className="action-btn edit"
                           title="Editar"
-                          onClick={() =>
-                            alert("Funcionalidad de editar servicio (simulado)")
-                          }
                         >
                           <FiEdit3 />
                         </button>
                         <button
                           className="action-btn delete"
                           title="Eliminar"
-                          onClick={() =>
-                            alert("Funcionalidad de eliminar servicio (simulado)")
-                          }
                         >
                           <FiTrash2 />
                         </button>

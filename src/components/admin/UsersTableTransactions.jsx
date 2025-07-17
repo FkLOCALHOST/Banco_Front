@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import useUserTransaction from '../../shared/hooks/transfer/useUserTransaction';
 import "../../assets/styles/historyTable.css";
@@ -10,9 +10,19 @@ const UsersTableTransaction = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-    const totalPages = Math.ceil(users.length / itemsPerPage);
+    const totalPages = users && users.length > 0 ? Math.ceil(users.length / itemsPerPage) : 1;
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentUsers = users.slice(startIndex, startIndex + itemsPerPage);
+
+    console.log("Usuarios:", users);
+    const currentUsers = startIndex < users.length
+        ? users.slice(startIndex, startIndex + itemsPerPage)
+        : users.slice(0, itemsPerPage); // fallback si el índice es inválido
+
+    useEffect(() => {
+        if (totalPages > 0 && currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [totalPages]);
 
     const handlePrevious = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);

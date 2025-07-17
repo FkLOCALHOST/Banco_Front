@@ -76,7 +76,7 @@ const UsersTable = () => {
                                         <td>Q {user.monthEarnings?.toLocaleString() || '0.00'}</td>
                                         <td>{user.status ? "Activo" : "Inactivo"}</td>
                                         <td>
-                                            <button onClick={() => handleEdit(user.uid)} className="edit-btn">
+                                            <button onClick={() => handleEdit(user.uid)} style={{color:"white"}} className="edit-btn">
                                                 Editar
                                             </button>
                                         </td>
