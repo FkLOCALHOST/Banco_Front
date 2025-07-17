@@ -10,15 +10,19 @@ const UsersTableTransaction = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-    const totalPages = users && users.length > 0 ? Math.ceil(users.length / itemsPerPage) : 0;
+    const totalPages = users && users.length > 0 ? Math.ceil(users.length / itemsPerPage) : 1;
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentUsers = users.slice(startIndex, startIndex + itemsPerPage);
+
+    console.log("Usuarios:", users);
+    const currentUsers = startIndex < users.length
+        ? users.slice(startIndex, startIndex + itemsPerPage)
+        : users.slice(0, itemsPerPage); // fallback si el índice es inválido
 
     useEffect(() => {
-        if (currentPage > totalPages) {
+        if (totalPages > 0 && currentPage > totalPages) {
             setCurrentPage(totalPages);
         }
-    }, [totalPages, currentPage]);
+    }, [totalPages]);
 
     const handlePrevious = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);

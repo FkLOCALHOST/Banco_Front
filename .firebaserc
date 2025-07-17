@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "bank-testing-production"
+    "default": "bank-front-deploy"
   }
 }

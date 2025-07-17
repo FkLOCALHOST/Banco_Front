@@ -3,18 +3,22 @@ import { FiHelpCircle, FiLogOut } from "react-icons/fi";
 import "../assets/styles/navbar.css";
 import useCurrentUser from "../shared/hooks/auth/useNameUser";
 import logo from "../assets/logoBanco.png";
-import Notificaciones from "./notifications"; // Importa el componente
+import Notificaciones from "./notifications";
+import { useNavigate } from "react-router-dom";
 
 const deleteCookie = (name) => {
-  document.cookie = `${name}=; Max-Age=0; path=/;`;
+  document.cookie = `${name}=; Max-Age=0; path=/; Secure; SameSite=None`;
 };
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const user = useCurrentUser();
-  const handleLogout = (sesion) => {
-    sesion.preventDefault();
-    deleteCookie("User");
-    window.location.reload();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    deleteCookie("auth_token");
+    localStorage.removeItem("User");
+    navigate("/")
   };
 
   const userAux = JSON.parse(localStorage.getItem("User"));
@@ -34,7 +38,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-user">
         <span>
-          Buenos Días,  <strong>{user?.userName || userAux?.name || "Usuario"}</strong>
+          Buenos Días, <strong>{user?.userName || userAux?.name || "Usuario"}</strong>
         </span>
         <div className="navbar-actions">
           <button className="navbar-btn help-btn" title="Ayuda">
