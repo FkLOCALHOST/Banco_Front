@@ -1,32 +1,33 @@
 import { useState, useCallback } from "react";
-import { getServiceById } from "../../../services/api";
+import { editServices } from "../../../services/api";
 
-const useGetServiceById = () => {
+const useEditService = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [service, setService] = useState(null);
+    const [success, setSuccess] = useState(false);
 
-    const fetchService = useCallback(async (id) => {
+    const editService = useCallback(async (id, data) => {
         setLoading(true);
         setError(null);
-        setService(null);
+        setSuccess(false);
         try {
-            const res = await getServiceById(id);
-            if (res.data && res.data.services && res.data.services.length > 0) {
-                setService(res.data.services[0]); 
+            const res = await editServices(id, data);
+            if (res.error) {
+                setError(res.message || "Error al actualizar el servicio.");
+                return { error: true, message: res.message };
             } else {
-                setError("No se encontró el servicio.");
+                setSuccess(true);
+                return res;
             }
-            return res;
         } catch (e) {
-            setError(e.message || "Error al obtener el servicio.");
+            setError(e.message || "Error al actualizar el servicio.");
             return { error: true, message: e.message };
         } finally {
             setLoading(false);
         }
     }, []);
 
-    return { fetchService, service, loading, error };
+    return { editService, loading, error, success };
 };
 
-export default useGetServiceById;
+export default useEditService;

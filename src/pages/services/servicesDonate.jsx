@@ -93,9 +93,8 @@ const ServicesDonate = () => {
           ) : (
             <div className="services-cards-grid">
               {donateServices.map((service) => {
-                const favKey = service.uid;
                 return (
-                  <div className="service-card" key={favKey}>
+                  <div className="service-card" key={service._id || service.uid || service.id}>
                     <div className="service-card-header">
                       <div className="service-card-name">{service.name}</div>
                     </div>
@@ -138,7 +137,7 @@ const ServicesDonate = () => {
                           className="action-btn edit"
                           title="Editar"
                           onClick={() =>
-                            navigate(`/service-form/edit/${encodeURIComponent(service.name)}`)
+                            navigate(`/service-form/edit/${service._id || service.uid || service.id}`)
                           }
                         >
                           <FiEdit3 />

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useGetServiceById from "../../shared/hooks/services/useGetServiceById";
+import useGetServices from "../../shared/hooks/services/useGetServices";
 import useEditService from "../../shared/hooks/services/useEditService";
 import '../../assets/styles/serviceForm.css';
 
 const ServiceFormEdit = () => {
   const navigate = useNavigate();
-  const { name } = useParams();
-  const { fetchService, service, loading: fetchLoading, error: fetchError } = useGetServiceById();
+  const { id } = useParams();
+  const { services, loading: fetchLoading, error: fetchError } = useGetServices();
   const { editService, loading, error, success } = useEditService();
 
   const [formData, setFormData] = useState({
@@ -18,26 +18,23 @@ const ServiceFormEdit = () => {
     type: 'Apoyo_Externo'
   });
 
-  useEffect(() => {
-    if (name) {
-      fetchService(decodeURIComponent(name));
-    }
-  }, [name, fetchService]);
+  const [currentService, setCurrentService] = useState(null);
 
   useEffect(() => {
-    console.log("service from hook:", service);
-    if (service && service.services && service.services.length > 0) {
-      const serviceData = service.services[0];
-      setFormData({
-        name: serviceData.name || '',
-        description: serviceData.description || '',
-        price: serviceData.price || '',
-        status: serviceData.status !== undefined ? serviceData.status : true,
-        type: serviceData.type || 'Apoyo_Externo'
-      });
+    if (id && services.length > 0) {
+      const service = services.find(s => (s._id || s.uid || s.id) === id);
+      if (service) {
+        setCurrentService(service);
+        setFormData({
+          name: service.name || '',
+          description: service.description || '',
+          price: service.price || '',
+          status: service.status !== undefined ? service.status : true,
+          type: service.type || 'Apoyo_Externo'
+        });
+      }
     }
-  }, [service]);
-
+  }, [id, services]);
 
   useEffect(() => {
     if (success) {
@@ -65,11 +62,18 @@ const ServiceFormEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (service && service.services && service.services.length > 0) {
-      const serviceData = service.services[0];
-      await editService(serviceData._id, formData);
+    if (currentService) {
+      await editService(currentService._id || currentService.id, formData);
     }
   };
+
+  if (fetchLoading) {
+    return <div className="service-form-container">Cargando servicios...</div>;
+  }
+
+  if (!currentService) {
+    return <div className="service-form-container">Servicio no encontrado</div>;
+  }
 
   return (
     <div className="service-form-container">
