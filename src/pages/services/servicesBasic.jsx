@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Navbar from "../../components/navbar.jsx";
 import Sidebar from "../../components/sideBar.jsx";
 import useGetServices from "../../shared/hooks/services/useGetServices";
-import { FiEdit3, FiTrash2, FiHeart } from "react-icons/fi";
+import { useDeleteService } from "../../shared/hooks/services/useDeleteService";
+import { FiEdit3, FiTrash2, FiPlus } from "react-icons/fi";
 import useUserRole from "../../memo/useUserRole.js";
+import ConfirmAlert from "../../components/confirmAlert.jsx";
+import AlertCustom from "../../components/alertCustom.jsx";
 import "../../assets/styles/services.css";
 import "../../assets/styles/layout.css";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +14,33 @@ import { useNavigate } from "react-router-dom";
 const ServicesBasic = () => {
   const { services, loading, error } = useGetServices();
   const { isAdmin, loading: loadingRole } = useUserRole();
+  const { deleteService, loading: deleteLoading } = useDeleteService();
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState({});
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-  const toggleFavorite = (id) => {
-    setFavorites((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handleDeleteService = (serviceId, serviceName) => {
+    setServiceToDelete({ id: serviceId, name: serviceName });
+    setShowConfirmDialog(true);
+  };
+
+  const confirmDelete = async () => {
+    setShowConfirmDialog(false);
+    const result = await deleteService(serviceToDelete.id);
+    if (result.error) {
+      alert(`Error al eliminar el servicio: ${result.message}`);
+    } else {
+      setShowSuccessAlert(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmDialog(false);
+    setServiceToDelete(null);
   };
 
   const basicServices = services.filter(
@@ -39,6 +61,28 @@ const ServicesBasic = () => {
             }}
           >
             <h2 className="services-title">Servicios Básicos</h2>
+            {!loadingRole && isAdmin && (
+              <button
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  background: "#25263c",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "0.6rem 1.2rem",
+                  fontWeight: 600,
+                  fontSize: "1rem",
+                  cursor: "pointer",
+                  transition: "background 0.2s",
+                }}
+                onClick={() => navigate("/service-form")}
+              >
+                <FiPlus />
+                Agregar servicio
+              </button>
+            )}
           </div>
           {loading ? (
             <div>Cargando servicios básicos...</div>
@@ -54,21 +98,6 @@ const ServicesBasic = () => {
                   <div className="service-card" key={favKey}>
                     <div className="service-card-header">
                       <div className="service-card-name">{service.name}</div>
-                      <button
-                        className={`favorite-btn ${favorites[favKey] ? 'active' : 'inactive'}`}
-                        title={
-                          favorites[favKey]
-                            ? "Quitar de favoritos"
-                            : "Agregar a favoritos"
-                        }
-                        onClick={() => toggleFavorite(favKey)}
-                        tabIndex={0}
-                        onMouseDown={(e) => e.preventDefault()}
-                      >
-                        <FiHeart
-                          fill={favorites[favKey] ? "#e53935" : "none"}
-                        />
-                      </button>
                     </div>
                     {service.image ? (
                       <img
@@ -114,6 +143,13 @@ const ServicesBasic = () => {
                         <button
                           className="action-btn delete"
                           title="Eliminar"
+                          onClick={() =>
+                            handleDeleteService(
+                              service._id || service.uid || service.id,
+                              service.name
+                            )
+                          }
+                          disabled={deleteLoading}
                         >
                           <FiTrash2 />
                         </button>
@@ -126,6 +162,21 @@ const ServicesBasic = () => {
           )}
         </main>
       </div>
+      {showConfirmDialog && (
+        <ConfirmAlert
+          message={`¿Estás seguro de que quieres eliminar el servicio "${serviceToDelete?.name}"?`}
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+          title="Eliminar servicio"
+        />
+      )}
+      {showSuccessAlert && (
+        <AlertCustom
+          message="Servicio eliminado exitosamente"
+          type="success"
+          onClose={() => setShowSuccessAlert(false)}
+        />
+      )}
     </>
   );
 };

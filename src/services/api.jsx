@@ -182,9 +182,13 @@ export const addService = async (data) => {
 
 export const updateService = async (id, data) => {
   try {
-    return await apiWallet.put(`/service/actualizar/${id}`, data);
+    return await apiWallet.put(`/service/actualizar/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   } catch (error) {
-    return { error: true, message: error.message };
+    return { error: true, message: error.response?.data?.message || error.message };
   }
 };
 
