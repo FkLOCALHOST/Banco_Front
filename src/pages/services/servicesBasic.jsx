@@ -137,6 +137,9 @@ const ServicesBasic = () => {
                         <button
                           className="action-btn edit"
                           title="Editar"
+                          onClick={() =>
+                            navigate(`/service-form/edit/${service._id || service.uid || service.id}`)
+                          }
                         >
                           <FiEdit3 />
                         </button>
