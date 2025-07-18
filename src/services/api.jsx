@@ -232,6 +232,28 @@ export const getUserServices = async (userId) => {
   }
 };
 
+export const editServices = async(id, data) =>{
+  try{
+    return await apiWallet.put(`/service/actualizar/${id}`,data)
+  }catch(error){
+    return{
+      error: true,
+      message: error.message
+    }
+  }
+}
+
+export const getServiceById = async (id) => {
+  try{
+    return await apiWallet.get(`/service/buscar/${id}`);
+  }catch(error){
+    return{
+      error: true,
+      message: error.message
+    }
+  }
+}
+
 // Transacciones
 export const createTransaction = async (data) => {
   try {

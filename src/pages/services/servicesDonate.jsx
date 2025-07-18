@@ -138,7 +138,7 @@ const ServicesDonate = () => {
                           className="action-btn edit"
                           title="Editar"
                           onClick={() =>
-                            alert("Funcionalidad de editar servicio (simulado)")
+                            navigate(`/service-form/edit/${encodeURIComponent(service.name)}`)
                           }
                         >
                           <FiEdit3 />
