@@ -182,9 +182,13 @@ export const addService = async (data) => {
 
 export const updateService = async (id, data) => {
   try {
-    return await apiWallet.put(`/service/actualizar/${id}`, data);
+    return await apiWallet.put(`/service/actualizar/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   } catch (error) {
-    return { error: true, message: error.message };
+    return { error: true, message: error.response?.data?.message || error.message };
   }
 };
 
@@ -227,6 +231,28 @@ export const getUserServices = async (userId) => {
     return { error: true, message: error.message };
   }
 };
+
+export const editServices = async(id, data) =>{
+  try{
+    return await apiWallet.put(`/service/actualizar/${id}`,data)
+  }catch(error){
+    return{
+      error: true,
+      message: error.message
+    }
+  }
+}
+
+export const getServiceById = async (id) => {
+  try{
+    return await apiWallet.get(`/service/buscar/${id}`);
+  }catch(error){
+    return{
+      error: true,
+      message: error.message
+    }
+  }
+}
 
 // Transacciones
 export const createTransaction = async (data) => {
