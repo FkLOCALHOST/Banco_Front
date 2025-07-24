@@ -48,6 +48,7 @@ const UsersTable = () => {
                     <table className="history-table">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Usuario</th>
                                 <th>Email</th>
@@ -66,6 +67,7 @@ const UsersTable = () => {
                             ) : (
                                 currentUsers.map((user) => (
                                     <tr key={user.uid}>
+                                        <td>{user.uid}</td>
                                         <td>{user.name}</td>
                                         <td>{user.userName}</td>
                                         <td>{user.email}</td>
