@@ -1,12 +1,45 @@
-# React + Vite
+# 💳 BancoGuate — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**BancoGuate** es una aplicación web desarrollada con **React.js** que permite a los usuarios realizar operaciones bancarias como transferencias entre monedas, pagos de servicios, y a los administradores visualizar estadísticas clave del sistema.
 
-Currently, two official plugins are available:
+Este repositorio contiene exclusivamente el **frontend** del proyecto. Está diseñado para integrarse con una API backend que maneja la lógica de negocio y persistencia en **MongoDB**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Funcionalidades
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🏦 Para Usuarios
+- Transacciones entre diferentes monedas (GTQ, USD).
+- Pagos de servicios (agua, luz, internet, teléfono).
+- Autenticación y manejo de sesión mediante cookies.
+- Historial de transacciones y facturas.
+
+### 📊 Para Administradores
+- Acceso a panel con estadísticas financieras.
+- Visualización de gráficos interactivos.
+- Filtros por tipo de transacción, fecha y usuario.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- **React.js** — Librería principal para la construcción de la interfaz.
+- **CSS** — Estilos personalizados para una experiencia moderna.
+- **Axios** — Cliente HTTP para comunicación con la API backend.
+- **MongoDB** — Base de datos utilizada en el backend (consultada vía API).
+- **Cookies** — Para manejo de sesiones y autenticación.
+- **Vercel** — Infraestructura de despliegue del frontend.
+- **Firebase** — Utilizado para notificaciones y almacenamiento de archivos (facturas, logs, etc).
+
+---
+
+## 📦 Instalación
+
+1. **Clona el repositorio (para uso en local):**
+   ```bash
+   git clone https://github.com/FkLOCALHOST/Banco_Front.git
+   npm i 
+   npm run dev
+2. **Para acceder al proyecto funcional:**
+   ```bash
+   https://bank-front-deploy.web.app/
