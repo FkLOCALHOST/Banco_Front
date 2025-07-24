@@ -61,28 +61,6 @@ const ServicesBasic = () => {
             }}
           >
             <h2 className="services-title">Servicios Básicos</h2>
-            {!loadingRole && isAdmin && (
-              <button
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  background: "#25263c",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "0.6rem 1.2rem",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                  transition: "background 0.2s",
-                }}
-                onClick={() => navigate("/service-form")}
-              >
-                <FiPlus />
-                Agregar servicio
-              </button>
-            )}
           </div>
           {loading ? (
             <div>Cargando servicios básicos...</div>
