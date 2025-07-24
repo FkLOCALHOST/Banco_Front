@@ -1,0 +1,250 @@
+.view-account-container {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.view-account-header {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-icon-wrapper {
+  background: linear-gradient(135deg, #25273D 0%, #1a1c32 100%);
+  border-radius: 50%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-account-header-icon {
+  color: white;
+  font-size: 2rem;
+}
+
+.header-text h2 {
+  margin: 0;
+  color: #25273D;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.header-text p {
+  margin: 0.5rem 0 0 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.profile-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.personal-info .card-icon {
+  color: #EE3A57;
+  background: rgba(238, 58, 87, 0.1);
+}
+
+.contact-info .card-icon {
+  color: #1D8FF4;
+  background: rgba(29, 143, 244, 0.1);
+}
+
+.work-info .card-icon {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #25273D;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: #f8f9fa;
+  transition: background 0.2s ease;
+}
+
+.info-item:hover {
+  background: #e9ecef;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon svg {
+  font-size: 1.1rem;
+  color: #25273D;
+}
+
+.info-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-details label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-details span {
+  font-size: 1rem;
+  color: #25273D;
+  font-weight: 500;
+}
+
+.view-account-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.view-account-edit-btn {
+  background: linear-gradient(135deg, #EE3A57 0%, #d12d48 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 30px rgba(238, 58, 87, 0.3);
+}
+
+.view-account-edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(238, 58, 87, 0.4);
+}
+
+.view-account-edit-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .view-account-container {
+    padding: 1rem;
+  }
+  
+  .profile-cards-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .profile-card {
+    padding: 1.5rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .info-icon {
+    align-self: center;
+  }
+  
+  .info-details {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-account-container {
+    padding: 0.5rem;
+  }
+  
+  .view-account-header,
+  .profile-card {
+    padding: 1rem;
+  }
+  
+  .header-text h2 {
+    font-size: 1.5rem;
+  }
+  
+  .card-header h3 {
+    font-size: 1.1rem;
+  }
+}

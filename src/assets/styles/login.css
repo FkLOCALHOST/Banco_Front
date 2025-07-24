@@ -1,0 +1,231 @@
+:root {
+  --banco-1: #25273D;
+  --banco-2: #EE3A57;
+  --banco-3: #FDFDFF;
+  --banco-4: #181929;
+  --banco-btn: #1D8FF4;
+}
+
+.login-hero {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(120deg, var(--banco-1) 70%, var(--banco-2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+}
+
+.login-card {
+  background: rgba(37, 39, 61, 0.94);
+  border-radius: 24px;
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.20);
+  padding: 2.2rem 2.3rem 2.15rem 2.3rem;
+  width: 410px;
+  max-width: 95vw;
+  animation: fadeInUp 0.6s;
+  overflow: hidden;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.login-header h1 {
+  color: var(--banco-2);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.login-header p {
+  color: var(--banco-3);
+  font-size: 1.08rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.2px;
+}
+
+.login-form-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.login-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-group input {
+  width: 100%;
+  padding: 1rem 1.4rem 1rem 2.6rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--banco-4);
+  color: var(--banco-3);
+  font-size: 1.05rem;
+  outline: none;
+  transition: box-shadow 0.15s, background 0.2s;
+  box-shadow: 0 1px 4px rgba(29, 143, 244, 0.05);
+  margin-bottom: 0;
+}
+
+.login-group input:focus {
+  background: #23243b;
+  box-shadow: 0 2px 12px rgba(29, 143, 244, 0.18);
+}
+
+.login-group label {
+  position: absolute;
+  left: 2.6rem;
+  top: 1rem;
+  color: #bfc2d4;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.15s ease;
+  background: transparent;
+  letter-spacing: 0.4px;
+}
+
+.login-group input:focus+label,
+.login-group input:not(:placeholder-shown)+label {
+  top: -0.7rem;
+  left: 2.3rem;
+  font-size: 0.91rem;
+  background: rgba(37, 39, 61, 0.94);
+  padding: 0 0.35em;
+  border-radius: 7px;
+  color: var(--banco-btn);
+  font-weight: 500;
+}
+
+.login-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 1.09rem;
+  color: #bfc2d4;
+  font-size: 1.2rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.login-eye {
+  position: absolute;
+  right: 1.1rem;
+  top: 1.11rem;
+  color: #bfc2d4;
+  cursor: pointer;
+  font-size: 1.3rem;
+  z-index: 2;
+  transition: color 0.2s;
+}
+
+.login-eye:hover {
+  color: var(--banco-btn);
+}
+
+.login-btn-modern {
+  width: 100%;
+  padding: 0.9rem;
+  margin-top: 0.4rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--banco-btn);
+  color: var(--banco-3);
+  font-size: 1.13rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.09s;
+  box-shadow: 0 2px 10px rgba(29, 143, 244, 0.10);
+  letter-spacing: 0.5px;
+}
+
+.login-btn-modern:hover {
+  background: #176dc1;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.login-error {
+  color: var(--banco-2);
+  background: #fff0f6;
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: -0.5em;
+  text-align: center;
+  font-size: 1.03rem;
+  animation: shake 0.2s;
+}
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(3px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}
+
+.login-bottom {
+  margin-top: 1.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 0.6em;
+  align-items: center;
+  font-size: 1.02rem;
+  color: #bfc2d4;
+}
+
+.login-register-link {
+  background: transparent;
+  color: var(--banco-btn);
+  border: 2px solid var(--banco-btn);
+  padding: 0.4em 1.1em;
+  border-radius: 8px;
+  font-size: 1.01rem;
+  font-weight: 600;
+  margin-left: 0.25em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.login-register-link:hover {
+  background: var(--banco-btn);
+  color: var(--banco-3);
+}
