@@ -1,5 +1,5 @@
 *{
-  overflow-x: hidden !important;
+  overflow-x: auto !important;
 }
 
 .history-container {
@@ -24,25 +24,90 @@
   .history-table-container {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    width: 100%;
     overflow-x: auto;
+    overflow-y: visible;
   }
   
   .history-table {
     width: 100%;
+    min-width: 1200px;
     border-collapse: collapse;
-    table-layout: auto; 
+    table-layout: fixed;
   }
   
   .history-table th, 
   .history-table td {
-    padding: 10px;
+    padding: 8px;
     text-align: left;
     word-wrap: break-word;
+    min-width: 80px;
+  }
+
+  .history-table th:first-child,
+  .history-table td:first-child {
+    min-width: 60px;
+    width: 60px;
+  }
+
+  .history-table th:nth-child(2),
+  .history-table td:nth-child(2) {
+    min-width: 120px;
+    width: 120px;
+  }
+
+  .history-table th:nth-child(3),
+  .history-table td:nth-child(3) {
+    min-width: 100px;
+    width: 100px;
+  }
+
+  .history-table th:nth-child(4),
+  .history-table td:nth-child(4) {
+    min-width: 180px;
+    width: 180px;
+  }
+
+  .history-table th:nth-child(5),
+  .history-table td:nth-child(5) {
+    min-width: 100px;
+    width: 100px;
+  }
+
+  .history-table th:nth-child(6),
+  .history-table td:nth-child(6) {
+    min-width: 120px;
+    width: 120px;
+  }
+
+  .history-table th:nth-child(7),
+  .history-table td:nth-child(7) {
+    min-width: 150px;
+    width: 150px;
+  }
+
+  .history-table th:nth-child(8),
+  .history-table td:nth-child(8) {
+    min-width: 120px;
+    width: 120px;
+  }
+
+  .history-table th:nth-child(9),
+  .history-table td:nth-child(9) {
+    min-width: 140px;
+    width: 140px;
+  }
+
+  .history-table th:nth-child(10),
+  .history-table td:nth-child(10) {
+    min-width: 80px;
+    width: 80px;
   }
 
   .history-table td:last-child,
 .history-table th:last-child {
   min-width: 120px;
+  width: 120px;
   text-align: center;
 }
   
@@ -512,4 +577,44 @@
 
 .edit-btn:hover {
     background-color: #0056b3;
+}
+
+.copy-id-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 6px;
+    font-size: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    width: 45px;
+    height: 28px;
+}
+
+.copy-id-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+.copy-id-btn.copied {
+    background-color: #28a745;
+}
+
+.copy-id-btn.copied:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 768px) {
+    .copy-id-btn {
+        font-size: 9px;
+        padding: 3px 5px;
+        width: 40px;
+        height: 25px;
+    }
 }

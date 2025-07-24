@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiCopy } from 'react-icons/fi';
 import { useGetAllUsers } from '../../shared/hooks/user/useGetAllUsers';
 import "../../assets/styles/historyTable.css";
 import Navbar from '../navbar';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const UsersTable = () => {
     const { users, loading, error } = useGetAllUsers();
     const [currentPage, setCurrentPage] = useState(1);
+    const [copiedId, setCopiedId] = useState(null);
     const navigate = useNavigate();
     const itemsPerPage = 10;
 
@@ -31,6 +32,16 @@ const UsersTable = () => {
 
     const handleEdit = (userId) => {
         navigate(`/admin/edit-user/${userId}`);
+    };
+
+    const handleCopyId = async (userId) => {
+        try {
+            await navigator.clipboard.writeText(userId);
+            setCopiedId(userId);
+            setTimeout(() => setCopiedId(null), 2000);
+        } catch (err) {
+            console.error('Error al copiar ID:', err);
+        }
     };
 
     if (loading) return <div className="history-container"><p>Cargando usuarios...</p></div>;
@@ -63,11 +74,19 @@ const UsersTable = () => {
                         </thead>
                         <tbody>
                             {currentUsers.length === 0 ? (
-                                <tr><td colSpan={10}>No hay usuarios disponibles.</td></tr>
+                                <tr><td colSpan={11}>No hay usuarios disponibles.</td></tr>
                             ) : (
                                 currentUsers.map((user) => (
                                     <tr key={user.uid}>
-                                        <td>{user.uid}</td>
+                                        <td>
+                                            <button 
+                                                onClick={() => handleCopyId(user.uid)}
+                                                className={`copy-id-btn ${copiedId === user.uid ? 'copied' : ''}`}
+                                                title={copiedId === user.uid ? "¡Copiado!" : "Copiar ID"}
+                                            >
+                                                <FiCopy size={12} />
+                                            </button>
+                                        </td>
                                         <td>{user.name}</td>
                                         <td>{user.userName}</td>
                                         <td>{user.email}</td>
