@@ -5,6 +5,7 @@ import TransferPage from "./pages/transfer/transferPage.jsx";
 import ClientServicePage from "./pages/clientService/clientServicePage.jsx";
 import AccountsPage from "./pages/dashboard/accountsPage.jsx";
 import CookieValidator from "./shared/validators/validateCookie.jsx";
+import RoleValidator from "./shared/validators/validateRol.jsx";
 import Credito from "./components/credit/credits.jsx";
 import Notificaciones from "./components/notifications.jsx";
 import PaginaAyuda from "./pages/help/helpPage.jsx";
@@ -173,7 +174,9 @@ export const routes = [
     path: "/admin-options",
     element: (
       <CookieValidator>
-        <AdminOptionCards />
+        <RoleValidator>
+          <AdminOptionCards />
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -181,7 +184,9 @@ export const routes = [
     path: "/admin/generate-wallet",
     element: (
       <CookieValidator>
-        <GenerateAccount />
+        <RoleValidator>
+          <GenerateAccount />
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -189,7 +194,9 @@ export const routes = [
     path: "/admin/get-users",
     element: (
       <CookieValidator>
-        <UsersTableAccount/>
+        <RoleValidator>
+          <UsersTableAccount/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -197,7 +204,9 @@ export const routes = [
     path: "/admin/get-users-info",
     element: (
       <CookieValidator>
-        <UsersTable/>
+        <RoleValidator>
+          <UsersTable/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -205,7 +214,9 @@ export const routes = [
     path: "/admin/edit-user/:id",
     element: (
       <CookieValidator>
-        <EditAcountAdmin/>
+        <RoleValidator>
+          <EditAcountAdmin/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -213,7 +224,9 @@ export const routes = [
     path: "/admin/user-transactions/",
     element: (
       <CookieValidator>
-        <UsersTableTransaction/>
+        <RoleValidator>
+          <UsersTableTransaction/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -221,7 +234,9 @@ export const routes = [
     path: "/admin/deposits/",
     element: (
       <CookieValidator>
-        <TableOfTransactions/>
+        <RoleValidator>
+          <TableOfTransactions/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
@@ -229,7 +244,9 @@ export const routes = [
     path: "/admin/deposits/edit/:uid",
     element: (
       <CookieValidator>
-        <EditTransaction/>
+        <RoleValidator>
+          <EditTransaction/>
+        </RoleValidator>
       </CookieValidator>
     ),
   },
